@@ -1,0 +1,13 @@
+🧩 System Overview
+📱 Android App (Client):
+- Register/Login
+
+- Submit machine inspection request
+
+-View certificate status & history
+
+- Get renewal reminders
+
+- Download final certificate (PDF)
+
+- Scan QR code to verify certificate
