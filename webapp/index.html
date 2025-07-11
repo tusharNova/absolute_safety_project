@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute Safety | Industrial Equipment Certification</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 24px;
+            color: white !important;
+
+        }
+
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .btn-login {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-login:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-hero {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-hero:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-hero-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-hero-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            height: 100%;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        .certificate-section {
+            background-color: var(--light-color);
+            padding: 80px 0;
+        }
+
+        .certificate-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .certificate-highlight {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-icons a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .btn-hero {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+            }
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            /* Controls logo size */
+            width: auto;
+            /* Keeps aspect ratio */
+            object-fit: contain;
+            border-radius: 22px;
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                height: 30px;
+                /* Smaller on mobile */
+            }
+        }
+
+        .navbar {
+            padding: 5px 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark  sticky-top" style="background-color: var(--dark-color);">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="./assets/img/absolute-safety-logo.jpeg" alt="Absolute Safety Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-login" href="#login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <!-- <h1 class="hero-title">Industrial Safety Certification Experts</h1> -->
+            <h1 class="hero-title">Your Safety is Our Priority</h1>
+
+            <p class="hero-subtitle">Trusted inspection and certification services for hoists, lifts, and lifting
+                equipment</p>
+            <div class="d-flex justify-content-center flex-wrap">
+                <a href="#services" class="btn btn-hero me-3">Our Services</a>
+                <a href="#login" class="btn btn-hero btn-hero-outline">Client Login</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features/Services Section -->
+    <section class="py-5" id="services">
+        <div class="container py-5">
+            <h2 class="text-center section-title">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Equipment Inspection</h3>
+                        <p>Thorough examination of hoists, lifts, chains, ropes and lifting tackles to ensure compliance
+                            with Maharashtra Factories Rules 1963.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Safety Certification</h3>
+                        <p>Official certification for industrial equipment including passenger and material hoists with
+                            detailed examination reports.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Preventive Maintenance</h3>
+                        <p>Recommended maintenance schedules to ensure continuous safe operation of your lifting
+                            equipment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 bg-light" id="about">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title text-center">About Absolute Safety</h2>
+                    <p class="lead">Professional safety inspection and certification services with a commitment to
+                        excellence.</p>
+                    <p>Absolute Safety is a trusted provider of industrial equipment inspection and certification
+                        services in Nagpur and surrounding areas. Our team of certified professionals ensures that your
+                        lifting equipment meets all safety standards and regulations.</p>
+                    <p>We specialize in thorough examinations of passenger and material hoists, lifting machines,
+                        chains, ropes and lifting tackles as per Maharashtra Factories Rules 1963.</p>
+                    <div class="d-flex pt-3">
+                        <div class="pe-4">
+                            <h3 class="text-primary">100+</h3>
+                            <p>Certifications Issued</p>
+                        </div>
+                        <div class="pe-4">
+                            <h3 class="text-primary">15+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                        alt="Safety Inspection" class="img-fluid rounded shadow">
+                </div>
+            </div>
+            <!-- Profile Row -->
+            <div class="row justify-content-center">
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <img src="./assets/img/amol-zalke.jpg"
+                                    alt="Amol Zalke" class="rounded-circle mb-3 img-fluid" style="max-width: 200px;">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>Amol Zalke</h3>
+                                <p class="text-secondary mb-2"><strong>Absolute Safety (TPI Services)</strong></p>
+                                <p class="text-muted">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>Nagpur, Maharashtra
+                                </p>
+
+                                
+                                <div class="row mt-3">
+                                    <div class="col-sm-4">
+                                        <p class="mb-2">
+                                            <i class="fas fa-phone text-primary me-2"></i>
+                                            +91 7721010291
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="mb-2">
+                                            <i class="fas fa-certificate text-primary me-2"></i>
+                                            BE (MECH), PGDTD CAD-CAE
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="mb-2">
+                                            <i class="fas fa-id-card text-primary me-2"></i>
+                                            MS/DISH/CPC/Z-002/2023
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Sample Section -->
+    <section class="certificate-section" id="certificates">
+        <div class="container">
+            <h2 class="text-center section-title">Recent Certification</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="certificate-card">
+                        <h3 class="text-center mb-4">Certificate of Examination</h3>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <p><strong>Certificate No.:</strong> <span class="certificate-highlight">33845</span>
+                                </p>
+                                <p><strong>Company:</strong> <span class="certificate-highlight">M/S SQUIDWORK INFRA
+                                        LLP</span></p>
+                                <p><strong>Site Address:</strong> Kukreja Paris City Project, Hasanbag Road, Nagpur</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Equipment Type:</strong> <span class="certificate-highlight">Passenger
+                                        Material Hoist</span></p>
+                                <p><strong>Make:</strong> ALBISO, <strong>Sr. No:</strong> 20250502,
+                                    <strong>Model:</strong> SC200
+                                </p>
+                                <p><strong>Maximum Capacity:</strong> 2 ton, <strong>Height:</strong> 60m</p>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Examination Details</h5>
+                                <p><strong>Tested On:</strong> 26.05.2025</p>
+                                <p><strong>Certificate Valid Until:</strong> 25.11.2025</p>
+                                <p><strong>Safety Lock Sr. No:</strong> 01398355</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Inspection Results</h5>
+                                <p><i class="fas fa-check-circle text-success me-2"></i> All critical components checked
+                                    and found satisfactory</p>
+                                <p><i class="fas fa-check-circle text-success me-2"></i> Preventive Drop Safety Device
+                                    working properly</p>
+                                <p><strong>Safe Working Load:</strong> 1600kg</p>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <p class="mb-1"><strong>Certified By:</strong></p>
+                            <h5>Amol Zalke</h5>
+                            <p>BE (MECH), PGDTD CAD-CAE</p>
+                            <p>Competent Authority for Safety and Health</p>
+                            <p>MS/DISH/CPC/Z-002/2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="py-5" id="login">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <h2 class="text-center mb-4">Client Login</h2>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username"
+                                        placeholder="Enter your username">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Enter your password">
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+                                <div class="text-center mt-3">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5 bg-light" id="contact">
+        <div class="container py-5">
+            <h2 class="text-center section-title">Contact Us</h2>
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <h4>Absolute Safety</h4>
+                    <p>Professional industrial equipment inspection and certification services.</p>
+                    <div class="mb-3">
+                        <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                        Chitanvispura, Shivaji Nagar, Mahal, Nagpur 440032
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-phone me-2 text-primary"></i>
+                        +91 77210 10291
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-envelope me-2 text-primary"></i>
+                        info@absolutesafety.com
+                    </div>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Your Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Your Email">
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" placeholder="Subject">
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="footer-title">Absolute Safety</h3>
+                    <p>Professional industrial safety inspection and certification services ensuring compliance with
+                        safety regulations.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="#">Home</a>
+                        <a href="#services">Services</a>
+                        <a href="#about">About</a>
+                        <a href="#certificates">Certificates</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="footer-title">Our Services</h3>
+                    <div class="footer-links">
+                        <a href="#">Hoist Inspection</a>
+                        <a href="#">Lift Certification</a>
+                        <a href="#">Safety Audits</a>
+                        <a href="#">Preventive Maintenance</a>
+                        <a href="#">Regulatory Compliance</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="footer-title">Contact Info</h3>
+                    <div class="footer-links">
+                        <a href="#"><i class="fas fa-map-marker-alt me-2"></i> Nagpur, Maharashtra</a>
+                        <a href="#"><i class="fas fa-phone me-2"></i> +91 77210 10291</a>
+                        <a href="#"><i class="fas fa-envelope me-2"></i> info@absolutesafety.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Absolute Safety. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add shadow to navbar on scroll
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+
+</html>
