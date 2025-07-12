@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute Safety | Industrial Equipment Certification</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --accent-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --light-color: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 30px 90px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #4ecdc4, #44a08d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            right: 20%;
+            animation-delay: 5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 10s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 40px;
+            height: 40px;
+            bottom: 30%;
+            right: 10%;
+            animation-delay: 15s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-light);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            width: auto;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-login {
+            background: var(--secondary-gradient);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 600;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .hero-buttons {
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .btn-hero {
+            background: var(--secondary-gradient);
+            color: white;
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-hero:hover::before {
+            left: 100%;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .btn-hero-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-hero-outline:hover {
+            background: white;
+            color: var(--text-dark);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated Particles */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            top: 40%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 8px;
+            height: 8px;
+            top: 60%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            top: 80%;
+            left: 40%;
+            animation-delay: 6s;
+        }
+
+        .particle:nth-child(5) {
+            width: 3px;
+            height: 3px;
+            top: 30%;
+            right: 20%;
+            animation-delay: 8s;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0px) translateX(0px);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(-100px);
+                opacity: 0;
+            }
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-weight: 800;
+            color: var(--text-dark);
+            position: relative;
+            margin-bottom: 60px;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-gradient);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 249, 252, 0.9));
+            position: relative;
+        }
+
+        .stats-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            margin-top: 60px;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            background: var(--primary-gradient);
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-card:hover .profile-image {
+            transform: scale(1.05);
+        }
+
+        /* Certificate Section */
+        .certificate-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        }
+
+        .certificate-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--accent-gradient);
+        }
+
+        .certificate-highlight {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        /* Login Section */
+        .login-section {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.05), rgba(68, 160, 141, 0.05));
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--shadow-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-control {
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-login-form {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 15px;
+            padding: 15px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login-form:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(238, 90, 36, 0.05));
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-light);
+            height: 100%;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(5deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gradient);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 10px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            margin-top: 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .btn-hero {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+            }
+
+            .feature-card {
+                margin-bottom: 30px;
+            }
+
+            .login-card {
+                padding: 30px;
+            }
+
+            .contact-info {
+                margin-bottom: 30px;
+            }
+
+            .navbar-brand img {
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+
+            .profile-card {
+                padding: 30px;
+            }
+
+            .certificate-card {
+                padding: 30px;
+            }
+
+            .contact-form {
+                padding: 30px;
+            }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-aos="fade-right">
+                <img src="https://via.placeholder.com/45x45/667eea/white?text=AS" alt="Absolute Safety Logo">
+                Absolute <span style="color: #ff6b6b;">Safety</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-login" href="#login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Your Safety is Our <span style="color: #4ecdc4;">Priority</span></h1>
+                <p class="hero-subtitle">Trusted inspection and certification services for hoists, lifts, and lifting
+                    equipment with cutting-edge technology</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-hero">
+                        <i class="fas fa-rocket me-2"></i>Our Services
+                    </a>
+                    <a href="#login" class="btn btn-hero btn-hero-outline">
+                        <i class="fas fa-user me-2"></i>Client Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5" id="services">
+        <div class="container py-5">
+            <h2 class="text-center section-title" data-aos="fade-up">Our Premium Services</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <h3>Equipment Inspection</h3>
+                        <p>Comprehensive examination of hoists, lifts, chains, ropes and lifting tackles ensuring 100%
+                            compliance with Maharashtra Factories Rules 1963 using advanced inspection techniques.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Safety Certification</h3>
+                        <p>Official certification for industrial equipment including passenger and material hoists with
+                            detailed digital examination reports and instant certificate generation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Preventive Maintenance</h3>
+                        <p>AI-powered maintenance scheduling and recommendations to ensure continuous safe operation of
+                            your lifting equipment with predictive analytics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 about-section" id="about">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <h2 class="section-title">About Absolute Safety</h2>
+                    <p class="lead">Leading the future of industrial safety with innovation, expertise, and unwavering
+                        commitment to excellence.</p>
+                    <p>Absolute Safety stands as the premier provider of industrial equipment inspection and
+                        certification services in Nagpur and across Maharashtra. Our team of certified professionals
+                        leverages cutting-edge technology and decades of experience to ensure your lifting equipment
+                        exceeds all safety standards.</p>
+                    <p>We specialize in comprehensive examinations of passenger and material hoists, lifting machines,
+                        chains, ropes and lifting tackles, strictly adhering to Maharashtra Factories Rules 1963 while
+                        incorporating modern safety innovations.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="stats-item">
+                                <div class="stats-number">500+</div>
+                                <p class="mb-0">Certifications Issued</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="stats-item">
+                                <div class="stats-number">15+</div>
+                                <p class="mb-0">Years Experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                        alt="Safety Inspection" class="img-fluid rounded shadow-lg"
+                        style="border-radius: 20px !important;">
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-10">
+                    <div class="profile-card">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3 col-md-4 text-center">
+                                <div class="profile-image mx-auto">
+                                    <img src="https://via.placeholder.com/150x150/667eea/white?text=AZ"
+                                        alt="Amol Zalke">
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <h3 class="mb-2" style="color: var(--text-dark); font-weight: 700;">Amol Zalke</h3>
+                                <p class="text-muted mb-2"><strong>Founder & Chief Inspector</strong></p>
+                                <p class="text-muted mb-3">
+                                    <i class="fas fa-map-marker-alt me-2" style="color: #ff6b6b;"></i>Nagpur,
+                                    Maharashtra
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="contact-icon me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted">Phone</small>
+                                                <p class="mb-0 fw-bold">+91 7721010291</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="contact-icon me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-graduation-cap"></i>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted">Education</small>
+                                                <p class="mb-0 fw-bold">BE (MECH), PGDTD</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="contact-icon me-3" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-id-card"></i>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted">License</small>
+                                                <p class="mb-0 fw-bold">MS/DISH/CPC/Z-002/2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Section -->
+    <section class="py-5 certificate-section" id="certificates">
+        <div class="container py-5">
+            <h2 class="text-center section-title" data-aos="fade-up">Recent Certification</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-11" data-aos="fade-up" data-aos-delay="100">
+                    <div class="certificate-card">
+                        <div class="text-center mb-4">
+                            <h3 class="mb-3" style="color: var(--text-dark); font-weight: 700;">
+                                <i class="fas fa-certificate me-2" style="color: #4ecdc4;"></i>
+                                Certificate of Examination
+                            </h3>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-lg-6 mb-3">
+                                <div class="bg-light p-3 rounded">
+                                    <h5 class="mb-3" style="color: var(--text-dark);">Certificate Details</h5>
+                                    <p class="mb-2"><strong>Certificate No.:</strong> <span
+                                            class="certificate-highlight">33845</span></p>
+                                    <p class="mb-2"><strong>Company:</strong> <span class="certificate-highlight">M/S
+                                            SQUIDWORK INFRA LLP</span></p>
+                                    <p class="mb-0"><strong>Site Address:</strong> Kukreja Paris City Project, Hasanbag
+                                        Road, Nagpur</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <div class="bg-light p-3 rounded">
+                                    <h5 class="mb-3" style="color: var(--text-dark);">Equipment Specifications</h5>
+                                    <p class="mb-2"><strong>Equipment Type:</strong> <span
+                                            class="certificate-highlight">Passenger Material Hoist</span></p>
+                                    <p class="mb-2"><strong>Make:</strong> ALBISO | <strong>Model:</strong> SC200 |
+                                        <strong>Sr. No:</strong> 20250502
+                                    </p>
+                                    <p class="mb-0"><strong>Capacity:</strong> 2 ton | <strong>Height:</strong> 60m</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-lg-6 mb-3">
+                                <div class="bg-light p-3 rounded">
+                                    <h5 class="mb-3" style="color: var(--text-dark);">Examination Timeline</h5>
+                                    <p class="mb-2">
+                                        <i class="fas fa-calendar-check me-2" style="color: #4ecdc4;"></i>
+                                        <strong>Tested On:</strong> 26.05.2025
+                                    </p>
+                                    <p class="mb-2">
+                                        <i class="fas fa-calendar-times me-2" style="color: #ff6b6b;"></i>
+                                        <strong>Valid Until:</strong> 25.11.2025
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="fas fa-lock me-2" style="color: #667eea;"></i>
+                                        <strong>Safety Lock Sr. No:</strong> 01398355
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <div class="bg-light p-3 rounded">
+                                    <h5 class="mb-3" style="color: var(--text-dark);">Inspection Results</h5>
+                                    <p class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        All critical components verified
+                                    </p>
+                                    <p class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Safety devices functioning properly
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="fas fa-weight-hanging me-2" style="color: #ff6b6b;"></i>
+                                        <strong>Safe Working Load:</strong> 1600kg
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center p-4 bg-light rounded">
+                            <p class="mb-2 text-muted">Certified By</p>
+                            <h5 class="mb-2" style="color: var(--text-dark);">Amol Zalke</h5>
+                            <p class="mb-1 text-muted">BE (MECH), PGDTD CAD-CAE</p>
+                            <p class="mb-1 text-muted">Competent Authority for Safety and Health</p>
+                            <p class="mb-0 certificate-highlight">MS/DISH/CPC/Z-002/2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="py-5 login-section" id="login">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8" data-aos="fade-up">
+                    <div class="login-card">
+                        <div class="text-center mb-4">
+                            <h2 class="mb-3" style="color: var(--text-dark); font-weight: 700;">
+                                <i class="fas fa-user-circle me-2" style="color: #667eea;"></i>
+                                Client Login
+                            </h2>
+                            <p class="text-muted">Access your certificates and inspection reports</p>
+                        </div>
+                        <form>
+                            <div class="mb-4">
+                                <label for="username" class="form-label fw-bold">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0">
+                                        <i class="fas fa-user text-muted"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="username"
+                                        placeholder="Enter your username">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-bold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0">
+                                        <i class="fas fa-lock text-muted"></i>
+                                    </span>
+                                    <input type="password" class="form-control border-start-0" id="password"
+                                        placeholder="Enter your password">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember"
+                                        style="border-radius: 5px;">
+                                    <label class="form-check-label" for="remember">
+                                        Remember me for 30 days
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-login-form w-100 mb-3">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                Login to Dashboard
+                            </button>
+                            <div class="text-center">
+                                <a href="#" class="text-decoration-none" style="color: #667eea;">
+                                    <i class="fas fa-question-circle me-1"></i>
+                                    Forgot your password?
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5 contact-section" id="contact">
+        <div class="container py-5">
+            <h2 class="text-center section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="row g-4">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div class="contact-info">
+                        <h4 class="mb-4" style="color: var(--text-dark); font-weight: 700;">Contact Information</h4>
+                        <p class="text-muted mb-4">Ready to ensure your equipment's safety? Reach out to us for
+                            professional inspection and certification services.</p>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Address</h6>
+                                <p class="mb-0 text-muted">Chitanvispura, Shivaji Nagar, Mahal, Nagpur 440032</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Phone</h6>
+                                <p class="mb-0 text-muted">+91 77210 10291</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Email</h6>
+                                <p class="mb-0 text-muted">info@absolutesafety.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Business Hours</h6>
+                                <p class="mb-0 text-muted">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="social-icons">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="contact-form">
+                        <h4 class="mb-4" style="color: var(--text-dark); font-weight: 700;">Send us a Message</h4>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-bold">Email Address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label fw-bold">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Your Phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="service" class="form-label fw-bold">Service Required</label>
+                                    <select class="form-control" id="service">
+                                        <option>Select Service</option>
+                                        <option>Hoist Inspection</option>
+                                        <option>Lift Certification</option>
+                                        <option>Safety Audit</option>
+                                        <option>Preventive Maintenance</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label fw-bold">Subject</label>
+                                    <input type="text" class="form-control" id="subject" placeholder="Message Subject">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-bold">Message</label>
+                                    <textarea class="form-control" id="message" rows="5"
+                                        placeholder="Your Message"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-login-form">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <h3 class="footer-title">Absolute Safety</h3>
+                    <p class="mb-4">Leading provider of industrial safety inspection and certification services,
+                        ensuring compliance with safety regulations through innovation and expertise.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#services">Services</a>
+                        <a href="#about">About</a>
+                        <a href="#certificates">Certificates</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="footer-title">Our Services</h3>
+                    <div class="footer-links">
+                        <a href="#">Hoist Inspection</a>
+                        <a href="#">Lift Certification</a>
+                        <a href="#">Safety Audits</a>
+                        <a href="#">Preventive Maintenance</a>
+                        <a href="#">Regulatory Compliance</a>
+                        <a href="#">Emergency Inspections</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="footer-title">Contact Info</h3>
+                    <div class="footer-links">
+                        <a href="#"><i class="fas fa-map-marker-alt me-2"></i> Nagpur, Maharashtra</a>
+                        <a href="tel:+917721010291"><i class="fas fa-phone me-2"></i> +91 77210 10291</a>
+                        <a href="mailto:info@absolutesafety.com"><i class="fas fa-envelope me-2"></i>
+                            info@absolutesafety.com</a>
+                        <a href="#"><i class="fas fa-clock me-2"></i> Mon - Sat: 9AM - 6PM</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Absolute Safety. All Rights Reserved. | Designed with ❤️ for Industrial Safety</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-circle" id="backToTop"
+        style="width: 50px; height: 50px; display: none; z-index: 1000;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Loading Animation
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('backToTop');
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.style.display = 'block';
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Form animations
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.style.transform = 'scale(1.02)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Counter animation
+        function animateCounter(element, start, end, duration) {
+            let current = start;
+            const range = end - start;
+            const increment = end > start ? 1 : -1;
+            const step = Math.abs(Math.floor(duration / range));
+            const obj = element;
+            const timer = setInterval(() => {
+                current += increment;
+                obj.textContent = current + '+';
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, step);
+        }
+
+        // Trigger counter animation when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stats-number');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.textContent);
+                        animateCounter(counter, 0, target, 2000);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stats-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-section');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.feature-card, .contact-item').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Enhanced loading screen
+        const loadingMessages = [
+            "Initializing Safety Systems...",
+            "Loading Certification Database...",
+            "Preparing Your Experience...",
+            "Almost Ready..."
+        ];
+
+        let messageIndex = 0;
+        const messageInterval = setInterval(() => {
+            if (messageIndex < loadingMessages.length) {
+                // You can add a message display element if needed
+                messageIndex++;
+            } else {
+                clearInterval(messageInterval);
+            }
+        }, 500);
+
+        // Mobile menu enhancement
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        if (navbarToggler) {
+            navbarToggler.addEventListener('click', function () {
+                setTimeout(() => {
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.style.animation = 'slideDown 0.3s ease';
+                    }
+                }, 10);
+            });
+        }
+
+        // Add CSS animation for mobile menu
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Add loading state to submit button
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+                submitBtn.disabled = true;
+
+                // Simulate form submission
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Success!';
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }, 2000);
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+
+</html>
