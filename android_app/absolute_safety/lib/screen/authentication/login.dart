@@ -1,8 +1,65 @@
 import 'package:absolute_safety/screen/authentication/Registration.dart';
+import 'package:absolute_safety/screen/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+  late AnimationController _fadeController;
+  late AnimationController _slideController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  bool _isPasswordVisible = false;
+  bool _isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
+    _slideController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
+    );
+
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+        );
+
+    // Start animations
+    _fadeController.forward();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _slideController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    _slideController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,197 +67,412 @@ class LoginPage extends StatelessWidget {
     final isMobile = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: Colors.teal[50],
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                "assets/logo/logo.png",
-                width: isMobile ? screenWidth * 0.25 : screenWidth * 0.15,
-                height: isMobile ? screenWidth * 0.25 : screenWidth * 0.15,
-              ),
-              const SizedBox(height: 30),
-
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 400,
-                ), // Max width for desktop
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.teal.shade50,
+              Colors.blue.shade50,
+              Colors.indigo.shade50,
+            ],
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Background decoration
+            ...List.generate(6, (index) {
+              return Positioned(
+                top: (index * 120.0) - 50,
+                right: (index * 60.0) - 150,
                 child: Container(
-                  padding: const EdgeInsets.all(32.0),
+                  width: 100 + (index * 30.0),
+                  height: 100 + (index * 30.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      20.0,
-                    ), // Rounded corners for the card
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 15,
-                        offset: const Offset(0, 8), // Soft shadow
-                      ),
-                    ],
+                    shape: BoxShape.circle,
+                    color: Colors.white.withOpacity(0.1),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      // Welcoming Title
-                      Text(
-                        'Welcome Back!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Login to continue to your account.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                      ),
-                      const SizedBox(height: 30),
+                ),
+              );
+            }),
 
-                      // Email/Username Input
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Email or Username',
-                          hintText: 'Enter your email or username',
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            color: Colors.grey[600],
+            // Main content
+            Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _slideAnimation,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        // Logo section
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.teal.withOpacity(0.3),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              ),
+                            ],
                           ),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Password Input
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          hintText: 'Enter your password',
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            color: Colors.grey[600],
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              Icons.visibility_off_outlined,
-                              color: Colors.grey[600],
-                            ),
-                            onPressed: () {
-                              // TODO: Implement password visibility toggle
-                            },
+                          child: Image.asset(
+                            "assets/logo/logo.png",
+                            width: isMobile
+                                ? screenWidth * 0.2
+                                : screenWidth * 0.1,
+                            height: isMobile
+                                ? screenWidth * 0.2
+                                : screenWidth * 0.1,
                           ),
                         ),
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 15),
+                        const SizedBox(height: 10),
 
-                      // Forgot Password Link
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            // TODO: Implement forgot password logic
-                            print('Forgot Password?');
-                          },
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              color: Colors.teal,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-
-                      // Login Button
-                      ElevatedButton(
-                        onPressed: () {
-                          // TODO: Implement login logic
-                          print('Login Button Pressed');
-                        },
-                        child: const Text('Login'),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Don't have an account?",
-                            style: TextStyle(color: Colors.grey[700]),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Registration(),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 420),
+                          child: Container(
+                            padding: const EdgeInsets.all(32.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.95),
+                              borderRadius: BorderRadius.circular(24.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 30,
+                                  spreadRadius: 0,
+                                  offset: const Offset(0, 10),
                                 ),
-                              );
-                            },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold,
+                              ],
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.2),
+                                width: 1,
+                              ),
+                            ),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  // Welcome title
+                                  Text(
+                                    'Welcome Back!',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: isMobile ? 28 : 32,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Please sign in to your account',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 40),
+
+                                  // Email field
+                                  _buildModernTextField(
+                                    controller: _emailController,
+                                    label: 'Email',
+                                    hint: 'Enter your email',
+                                    icon: Icons.email_outlined,
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your email';
+                                      }
+                                      if (!RegExp(
+                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                      ).hasMatch(value)) {
+                                        return 'Please enter a valid email';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
+
+                                  // Password field
+                                  _buildModernTextField(
+                                    controller: _passwordController,
+                                    label: 'Password',
+                                    hint: 'Enter your password',
+                                    icon: Icons.lock_outline,
+                                    obscureText: !_isPasswordVisible,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _isPasswordVisible
+                                            ? Icons.visibility_outlined
+                                            : Icons.visibility_off_outlined,
+                                        color: Colors.grey[600],
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isPasswordVisible =
+                                              !_isPasswordVisible;
+                                        });
+                                      },
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your password';
+                                      }
+                                      if (value.length < 6) {
+                                        return 'Password must be at least 6 characters';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 15),
+
+                                  // Forgot password
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        // TODO: Implement forgot password
+                                        print('Forgot Password?');
+                                      },
+                                      child: Text(
+                                        'Forgot Password?',
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.teal,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+
+                                  // Login button
+                                  _buildModernButton(
+                                    text: 'Sign In',
+                                    onPressed: _handleLogin,
+                                    isLoading: _isLoading,
+                                  ),
+                                  const SizedBox(height: 20),
+
+                                  Divider(),
+
+                                  // Sign up link
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Don't have an account? ",
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.grey[700],
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Registration(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'Sign Up',
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.teal,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModernTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+    Widget? suffixIcon,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      style: GoogleFonts.poppins(fontSize: 16),
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        prefixIcon: Icon(icon, color: Colors.teal),
+        suffixIcon: suffixIcon,
+        labelStyle: GoogleFonts.poppins(color: Colors.grey[600]),
+        hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+        filled: true,
+        fillColor: Colors.grey[50],
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey[300]!),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey[300]!),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.teal, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModernButton({
+    required String text,
+    required VoidCallback onPressed,
+    bool isLoading = false,
+  }) {
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Colors.teal, Colors.tealAccent],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.teal.withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                text,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildSocialButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[300]!),
+      ),
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, color: color, size: 20),
+        label: Text(
+          label,
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey[700],
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
     );
   }
-}
 
-// Custom Widget for Social Login Buttons
-class SocialLoginButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-  final Color color;
+  Future<void> _handleLogin() async {
+    // if (_formKey.currentState!.validate()) {
+    setState(() {
+      _isLoading = true;
+    });
 
-  const SocialLoginButton({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    required this.color,
-  });
+    // Simulate login process
+    await Future.delayed(const Duration(seconds: 2));
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon, color: Colors.white),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
-        textStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
-        elevation: 5.0,
-        shadowColor: color.withOpacity(0.3),
-      ),
+    setState(() {
+      _isLoading = false;
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DashboardScreen()),
     );
+
+    // TODO: Implement actual login logic
+    print('Login: ${_emailController.text}, ${_passwordController.text}');
+    // }
   }
 }
