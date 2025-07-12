@@ -1,3 +1,8 @@
+import 'package:absolute_safety/screen/dashboard/DownloadCertificatePage.dart';
+import 'package:absolute_safety/screen/dashboard/RenewalRemindersPage.dart';
+import 'package:absolute_safety/screen/dashboard/ScanQRCodePage.dart';
+import 'package:absolute_safety/screen/dashboard/machine_submit.dart';
+import 'package:absolute_safety/screen/dashboard/CertificateStatusHistoryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -130,35 +135,35 @@ class _DashboardScreenState extends State<DashboardScreen>
         'subtitle': 'Request new inspection',
         'icon': Icons.add_task,
         'color': Color(0xFF667EEA),
-        'route': '/submit-inspection',
+        'route': MachineInspectionRequestPage(),
       },
       {
         'title': 'Certificate Status & History',
         'subtitle': 'Track your certificates',
         'icon': Icons.history,
         'color': Color(0xFF764BA2),
-        'route': '/certificate-status',
+        'route': CertificateStatusHistoryPage(),
       },
       {
         'title': 'Renewal Reminders',
         'subtitle': 'Stay updated on renewals',
         'icon': Icons.notification_important,
         'color': Color(0xFF11998E),
-        'route': '/renewal-reminders',
+        'route': RenewalRemindersPage(),
       },
       {
         'title': 'Download Certificate',
         'subtitle': 'Get your PDF certificate',
         'icon': Icons.download,
         'color': Color(0xFFE056FD),
-        'route': '/download-certificate',
+        'route': DownloadCertificatePage(),
       },
       {
         'title': 'Scan QR Code',
         'subtitle': 'Verify certificate authenticity',
         'icon': Icons.qr_code_scanner,
         'color': Color(0xFFFF6B6B),
-        'route': '/scan-qr',
+        'route': ScanQRCodePage(),
       },
     ];
 
@@ -179,7 +184,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           subtitle: option['subtitle'] as String,
           icon: option['icon'] as IconData,
           color: option['color'] as Color,
-          route: option['route'] as String,
+          route: option['route'],
           delay: Duration(milliseconds: 100 * index),
         );
       },
@@ -191,7 +196,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     required String subtitle,
     required IconData icon,
     required Color color,
-    required String route,
+    required var route,
     required Duration delay,
   }) {
     return TweenAnimationBuilder<double>(
@@ -205,6 +210,10 @@ class _DashboardScreenState extends State<DashboardScreen>
             onTap: () {
               HapticFeedback.lightImpact();
               // Navigator.pushNamed(context, route);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => route),
+              );
             },
             child: Container(
               padding: EdgeInsets.all(20),
