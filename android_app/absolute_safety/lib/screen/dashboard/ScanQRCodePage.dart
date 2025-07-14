@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ScanQRCodePage extends StatefulWidget {
   const ScanQRCodePage({super.key});
@@ -44,38 +45,6 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
     super.dispose();
   }
 
-  void _showImageSourceSheet() {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => Container(
-        padding: EdgeInsets.all(16),
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: Icon(Icons.camera_alt),
-              title: Text('Camera'),
-              onTap: () {
-                Navigator.pop(context);
-                _getFromCamera();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_library),
-              title: Text('Gallery'),
-              onTap: () {
-                Navigator.pop(context);
-                _getFromGallery();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   _getFromGallery() async {
     try {
       final pickedFiles = await ImagePicker().pickImage(
@@ -89,24 +58,6 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
       }
 
       image = pickedFiles.path;
-      print(image);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  _getFromCamera() async {
-    try {
-      XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.camera,
-        maxWidth: 1800,
-        maxHeight: 1800,
-      );
-
-      if (pickedFile == null) {
-        return;
-      }
-      image = pickedFile.path;
       print(image);
     } catch (e) {
       print(e);
@@ -469,13 +420,22 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
     );
   }
 
-  void _handleGallerySelection() {
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text('Gallery selection feature coming soon!'),
-    //     backgroundColor: Colors.blue,
-    //   ),
-    // );
+  void _handleGallerySelection() async {
+    if (await Permission.storage.isDenied || await Permission.photos.isDenied) {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+        Permission.photos,
+      ].request();
+
+      if (statuses[Permission.storage]!.isGranted ||
+          statuses[Permission.photos]!.isGranted) {
+        print("Storage or photo permission granted");
+      } else {
+        print("Permission denied");
+      }
+    }
+
+    _getFromGallery();
   }
 
   void _showManualEntryDialog() {
