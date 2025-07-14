@@ -311,7 +311,7 @@
                                         <i class="fas fa-user text-muted"></i>
                                     </span>
                                     <input type="text" class="form-control border-start-0" id="username"
-                                        placeholder="Enter your username">
+                                        placeholder="Enter your username" autocomplete="off">
                                 </div>
                             </div>
                             <div class="mb-4">
@@ -321,7 +321,7 @@
                                         <i class="fas fa-lock text-muted"></i>
                                     </span>
                                     <input type="password" class="form-control border-start-0" id="password"
-                                        placeholder="Enter your password">
+                                        placeholder="Enter your password" autocomplete="new-password">
                                 </div>
                             </div>
                             <div class="mb-4">
