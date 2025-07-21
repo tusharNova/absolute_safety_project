@@ -55,7 +55,7 @@
                     <a href="#services" class="btn btn-hero">
                         <i class="fas fa-rocket me-2"></i>Our Services
                     </a>
-                    <a href="#login" class="btn btn-hero btn-hero-outline">
+                    <a href="auth/login.php" class="btn btn-hero btn-hero-outline">
                         <i class="fas fa-user me-2"></i>Client Login
                     </a>
                 </div>

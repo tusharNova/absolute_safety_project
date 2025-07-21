@@ -1,3 +1,14 @@
+<?php 
+
+session_start();
+if (!isset($_SESSION['client'])) {
+    header("Location: ../");
+    exit();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <!-- beautify ignore:start -->
 <html
@@ -299,10 +310,10 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="../index.php">
+                     <li>
+                      <a class="dropdown-item" id="btnLogout" style="cursor: pointer">
                         <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
+                        <span class="align-middle" >Log Out</span>
                       </a>
                     </li>
                   </ul>
@@ -594,6 +605,19 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#btnLogout").click(function () {
+
+          // alert("okkk")
+          window.location.href = "../auth/logout.php";
+        });
+      });
+    </script>
+
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
