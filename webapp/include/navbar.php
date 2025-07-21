@@ -19,7 +19,7 @@
                         </a>
                     </li> -->
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-login" href="#login">
+                        <a class="btn btn-login" href="auth/login.php">
                             <i class="fas fa-sign-in-alt me-1"></i>Login
                         </a>
                     </li>

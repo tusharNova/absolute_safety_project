@@ -95,7 +95,7 @@ session_start();
 
             } else if (username === "user" && password === "user") {
               <?php
-                $_SESSION["user"] = "user";
+                $_SESSION["client"] = "user";
               ?>
               
               window.location.href = "../dashboard/client.php";

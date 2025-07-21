@@ -1,5 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin'])) {
+  header("Location: ../"); // redirect to login
+  exit();
+}
+?>
+
 <!DOCTYPE html>
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -300,9 +308,9 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="../index.php#login">
+                      <a class="dropdown-item" id="btnLogout" style="cursor: pointer">
                         <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
+                        <span class="align-middle" >Log Out</span>
                       </a>
                     </li>
                   </ul>
@@ -323,13 +331,17 @@
                   <div class="card bg-primary text-white mb-3">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                      <h5 class="card-title text-white">Requests for Certificate</h5>
+                      <h5 class="card-title text-white">
+                        Requests for Certificate
+                      </h5>
                       <h3 class="text-white">10</h3>
                       <!-- <p class="card-text">
                         Some quick example text to build on the card title and
                         make up.
                       </p> -->
-                      <a href="javascript:void(0)" class="btn btn-dark">Show Requests</a>
+                      <a href="javascript:void(0)" class="btn btn-dark"
+                        >Show Requests</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -337,9 +349,7 @@
                   <div class="card bg-secondary text-white mb-3">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                      <h5 class="card-title text-white">
-                        In Progress
-                      </h5>
+                      <h5 class="card-title text-white">In Progress</h5>
                       <h3 class="text-white">15</h3>
                       <!-- <p class="card-text">
                         Some quick example text to build on the card title and
@@ -353,9 +363,7 @@
                   <div class="card bg-success text-white mb-3">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                      <h5 class="card-title text-white">
-                        New Requests
-                      </h5>
+                      <h5 class="card-title text-white">New Requests</h5>
                       <h3 class="text-white">15</h3>
                       <a href="javascript:void(0)" class="btn btn-dark">Show</a>
                     </div>
@@ -365,11 +373,11 @@
                   <div class="card bg-info text-white mb-3">
                     <div class="card-header">Status</div>
                     <div class="card-body">
-                      <h5 class="card-title text-white">
-                        Rejected
-                      </h5>
+                      <h5 class="card-title text-white">Rejected</h5>
                       <h3 class="text-white">5</h3>
-                      <a href="javascript:void(0)" class="btn btn-dark">Update</a>
+                      <a href="javascript:void(0)" class="btn btn-dark"
+                        >Update</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -378,11 +386,11 @@
                     <div class="card-header">Status</div>
                     <div class="card-body">
                       <!-- <h5 class="card-title text-white">Danger card title</h5> -->
-                      <h5 class="card-title text-white">
-                        Delivered
-                      </h5>
+                      <h5 class="card-title text-white">Delivered</h5>
                       <h3 class="text-white">25</h3>
-                      <a href="javascript:void(0)" class="btn btn-dark">Information</a>
+                      <a href="javascript:void(0)" class="btn btn-dark"
+                        >Information</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -391,17 +399,15 @@
                     <div class="card-header">Status</div>
                     <div class="card-body">
                       <!-- <h5 class="card-title text-white">Danger card title</h5> -->
-                      <h5 class="card-title text-white">
-                       Expired
-                      </h5>
-                      
+                      <h5 class="card-title text-white">Expired</h5>
+
                       <h3 class="text-white">3</h3>
-                      <a href="javascript:void(0)" class="btn btn-dark">Recreate</a>
+                      <a href="javascript:void(0)" class="btn btn-dark"
+                        >Recreate</a
+                      >
                     </div>
                   </div>
                 </div>
-
-                
               </div>
               <div class="row">
                 <div class="col-lg-8 mb-4 order-0">
@@ -862,8 +868,19 @@
     </div>
     <!-- / Layout wrapper -->
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#btnLogout").click(function () {
+
+          // alert("okkk")
+          window.location.href = "../auth/logout.php";
+        });
+      });
+    </script>
+
     <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
+
     <script src=" assets/vendor/libs/jquery/jquery.js"></script>
     <script src=" assets/vendor/libs/popper/popper.js"></script>
     <script src=" assets/vendor/js/bootstrap.js"></script>
