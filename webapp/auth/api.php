@@ -1,11 +1,9 @@
 <?php
+
+session_start();
+
 ob_start();
-
-
 header('Content-Type: application/json');
-
-// ini_set('display_errors', 0);
-// error_reporting(E_ALL);
 
 try {
     require_once '../includes/db_connection.php';
@@ -16,14 +14,13 @@ try {
             return false;
         }
         
-        // Use backticks for table name since it's whitelisted
         $sql = "SELECT * FROM `$table` WHERE username = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($password == $user['password']) {
-            unset($user['password']); // Remove password from response
+            unset($user['password']); 
             
             return [
                 'status' => 'success',
@@ -34,11 +31,9 @@ try {
         return false;
     }
     
-    // Get and decode JSON input
     $input = file_get_contents("php://input");
     $data = json_decode($input, true);
-    
-    // Check for JSON parsing errors
+        
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new Exception('Invalid JSON input: ' . json_last_error_msg());
     }
@@ -48,15 +43,19 @@ try {
     
     if (!$username || !$password) {
         http_response_code(400);
+
         $response = ['status' => 'error', 'message' => 'Missing username or password'];
-    } else {
-        // Check each table
+    } else
+    {
         $loginSuccess = false;
         foreach (['Admins', 'clients', 'engineers'] as $table) {
             $result = checkLogin($pdo, $table, $username, $password);
             if ($result) {
+
                 $response = $result;
                 $loginSuccess = true;
+                $_SESSION['user'] = $result['user'];
+                $_SESSION['role'] = $result['role'];
                 break;
             }
         }
@@ -87,10 +86,9 @@ try {
     error_log("Error in api.php: " . $e->getMessage());
 }
 
-// Clean any output buffer content
 ob_clean();
 
-// Send JSON response
+
 echo json_encode($response);
 exit;
 ?>

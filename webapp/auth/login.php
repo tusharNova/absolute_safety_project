@@ -45,6 +45,7 @@ session_start();
               name="password"
               placeholder="Enter your password"
               required
+            value="hashed_password1"
             />
             <button
               type="button"
@@ -65,7 +66,7 @@ session_start();
 
     <script>
       $(document).ready(function () {
-        // Password show/hide functionality
+
         $("#togglePassword").on("click", function () {
           const passwordField = $("#password");
           const currentType = passwordField.attr("type");
@@ -84,12 +85,10 @@ session_start();
           e.preventDefault();
 
           const data = {
-            password: $("#password").val(),
-            username: $("#username").val(),
+            password: $("#password").val().trim(),
+            username: $("#username").val().trim(),
           };
 
-          // alert(data.username)
-          // Here you would typically make an AJAX call to your backend
           $.ajax({
             url: "api.php",
             method: "POST",
@@ -98,16 +97,33 @@ session_start();
 
             success: function (response) {
               // alert(response);
-              if (response.status === 'success') {
-                alert(`Welcome! Logged in as ${response.role}`);
+              if (response.status === "success") {
+
+                switch(response.role) {
+                  case 'Admins':
+                    alert(`Welcome! Logged in as ${response.role}`);
+                    window.location.href = '../dashboard/index.php';
+                    break;
+                  case 'engineers':
+                    alert(`Welcome! Logged in as ${response.role}`);
+                    console.log(`Welcome! Logged in as ${response.user}`);
+                    // window.location.href = '/engineer-dashboard';
+                    break;
+                  case 'clients':
+                    alert(`Welcome! Logged in as ${response.role}`);
+                    // console.log(`Welcome! Logged in as ${response.user.username}`);
+                    window.location.href = '../dashboard/client.php';
+                    break;
+                }
               } else {
-                alert("Login failed: " + response.message);
+                alert("Invalid username or password");
               }
 
               // window.location.href = '/dashboard';
             },
             error: function (xhr, status, error) {
-              alert("Login failed: " + error);
+              alert("Invalid username or password");
+              console.log("error msg" + error );
 
             },
           });
