@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-  header("Location: ../"); // redirect to login
+  header("Location: ../index.php"); // redirect to login
   exit();
 }
 ?>
