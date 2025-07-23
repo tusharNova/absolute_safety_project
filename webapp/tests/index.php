@@ -4,7 +4,7 @@
 
 require_once '../includes/db_connection.php';
 
-$stmt = $conn->query("SELECT * FROM clients");
+$stmt = $pdo->query("SELECT * FROM clients");
 
 $clients = $stmt->fetchAll();
 

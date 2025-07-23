@@ -10,7 +10,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Absolute Safety - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="login-container">
@@ -30,6 +30,7 @@ session_start();
             type="text"
             id="username"
             name="username"
+            value="admin"
             placeholder="Enter your username or email"
             required
           />
@@ -82,46 +83,34 @@ session_start();
         $("#loginForm").on("submit", function (e) {
           e.preventDefault();
 
-          const username = $("#username").val().trim();
-          const password = $("#password").val().trim();
+          const data = {
+            password: $("#password").val(),
+            username: $("#username").val(),
+          };
 
-          if (username && password) {
-            if (username === "admin" && password === "admin") {
-              <?php
-                $_SESSION["admin"] = "admin";
-              ?>
-              
-              window.location.href = "../dashboard/admin.php";
+          // alert(data.username)
+          // Here you would typically make an AJAX call to your backend
+          $.ajax({
+            url: "api.php",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
 
-            } else if (username === "user" && password === "user") {
-              <?php
-                $_SESSION["client"] = "user";
-              ?>
-              
-              window.location.href = "../dashboard/client.php";
+            success: function (response) {
+              // alert(response);
+              if (response.status === 'success') {
+                alert(`Welcome! Logged in as ${response.role}`);
+              } else {
+                alert("Login failed: " + response.message);
+              }
 
-            } else {
-              alert("Invalid username or password");
-            }
+              // window.location.href = '/dashboard';
+            },
+            error: function (xhr, status, error) {
+              alert("Login failed: " + error);
 
-            // Here you would typically make an AJAX call to your backend
-            // $.ajax({
-            //     url: '/api/login',
-            //     method: 'POST',
-            //     data: {
-            //         username: username,
-            //         password: password
-            //     },
-            //     success: function(response) {
-            //         window.location.href = '/dashboard';
-            //     },
-            //     error: function(xhr, status, error) {
-            //         alert('Login failed: ' + error);
-            //     }
-            // });
-          } else {
-            alert("Please fill in all fields.");
-          }
+            },
+          });
         });
 
         // Add focus effects to inputs

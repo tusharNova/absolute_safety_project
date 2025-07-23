@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION['client'])) {
-    header("Location: ../");
+    header("Location: ../index.php");
     exit();
 }
 
