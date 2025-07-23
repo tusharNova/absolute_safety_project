@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-if (!isset($_SESSION['client'])) {
+if (!isset($_SESSION['clients'])) {
     header("Location: ../index.php");
     exit();
 }
