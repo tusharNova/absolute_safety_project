@@ -2,7 +2,7 @@
 // session_start();
 
 // if (!isset($_SESSION['Admins'])) {
-//   header("Location: ../index.php"); // redirect to login
+//   header("Location: ../../../index.php"); // redirect to login
 //   exit();
 // }
 ?>
@@ -831,26 +831,13 @@
                     </div>
                   </div>
                 </div>
-                <!--/ Recent Activities -->
+
               </div>
             </div>
-            <!-- / Content -->
+         
 
             <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div
-                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column"
-              >
-                <div class="mb-2 mb-md-0">
-                  <div class="copyright">
-                    <p>
-                      &copy; 2025 Absolute Safety. All Rights Reserved. |
-                      Designed with ❤️ for Industrial Safety
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </footer>
+            <?php  include_once 'includes/footer.php'; ?>
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
