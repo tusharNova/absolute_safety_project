@@ -84,9 +84,6 @@
 
     <!-- Helpers -->
     <script src=" ../assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" ../assets/js/config.js"></script>
   </head>
 
@@ -96,103 +93,7 @@
       <div class="layout-container">
         <!-- Menu -->
 
-        <aside
-          id="layout-menu"
-          class="layout-menu menu-vertical menu bg-menu-theme"
-        >
-          <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
-              <span class="app-brand-logo demo">
-                <img
-                  src="../../assets/img/absolute-safety-logo.jpeg"
-                  style="height: 55px; width: auto"
-                />
-              </span>
-              <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Absolute Safety</span> -->
-            </a>
-
-            <a
-              href="javascript:void(0);"
-              class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
-            >
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-              </a>
-            </li>
-
-            <!-- Layouts -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Request</div>
-              </a>
-
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="Create-request.php" class="menu-link">
-                    <div data-i18n="Without menu">Create Request</div>
-                  </a>
-                </li>
-
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Pages</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a
-                    href="pages-account-settings-account.html"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Account">Account</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Components -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Components</span>
-            </li>
-
-            <!-- User interface -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface">Certificate history</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="ui-accordion.html" class="menu-link">
-                    <div data-i18n="Accordion">Accordion</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+        <?php include_once './includes/slider.php'; ?>
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -577,20 +478,7 @@
 
             <!-- Footer -->
             <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div
-                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column"
-              >
-                <div class="mb-2 mb-md-0">
-                  <div class="copyright">
-                    <p>
-                      &copy; 2025 Absolute Safety. All Rights Reserved. |
-                      Designed with ❤️ for Industrial Safety
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </footer>
+          <?php include_once './includes/footer.php';?>
             <!-- / Footer -->
             <!-- / Footer -->
 
@@ -610,14 +498,10 @@
     <script>
       $(document).ready(function () {
         $("#btnLogout").click(function () {
-
-          // alert("okkk")
           window.location.href = "../auth/logout.php";
         });
       });
     </script>
-
-
 
     <!-- Core JS -->
     <!-- build:js ../assets/vendor/js/core.js -->
@@ -625,20 +509,12 @@
     <script src=" ../assets/vendor/libs/popper/popper.js"></script>
     <script src=" ../assets/vendor/js/bootstrap.js"></script>
     <script src=" ../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
     <script src=" ../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
-
     <!-- Vendors JS -->
     <script src=" ../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-    <!-- Main JS -->
     <script src=" ../assets/js/main.js"></script>
-    <!-- <script src="../assets/js/main.js"></script> -->
-    <!-- Page JS -->
     <script src=" ../assets/js/dashboards-analytics.js"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
