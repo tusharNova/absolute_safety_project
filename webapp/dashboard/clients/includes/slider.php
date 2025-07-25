@@ -32,7 +32,7 @@
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="Create-request.php" class="menu-link">
+                    <a href="create-request.php" class="menu-link">
                         <div data-i18n="Without menu">Create Request</div>
                     </a>
                 </li>
@@ -55,7 +55,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                    <a href="profile.php" class="menu-link">
                         <div data-i18n="Account">Account</div>
                     </a>
                 </li>
