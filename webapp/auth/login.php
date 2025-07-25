@@ -30,7 +30,7 @@ session_start();
             type="text"
             id="username"
             name="username"
-            value="admin"
+            value=""
             placeholder="Enter your username or email"
             required
           />
@@ -45,7 +45,7 @@ session_start();
               name="password"
               placeholder="Enter your password"
               required
-            value="hashed_password1"
+            value=""
             />
             <button
               type="button"
@@ -102,17 +102,17 @@ session_start();
                 switch(response.role) {
                   case 'Admins':
                     alert(`Welcome! Logged in as ${response.role}`);
-                    window.location.href = '../dashboard/index.php';
+                    window.location.href = '../dashboard/admin/index.php';
                     break;
                   case 'engineers':
                     alert(`Welcome! Logged in as ${response.role}`);
-                    console.log(`Welcome! Logged in as ${response.user}`);
-                    // window.location.href = '/engineer-dashboard';
+                    // console.log(`Welcome! Logged in as ${response.user}`);
+                    window.location.href = '../dashboard/engineers/index.php';
                     break;
                   case 'clients':
                     alert(`Welcome! Logged in as ${response.role}`);
                     // console.log(`Welcome! Logged in as ${response.user.username}`);
-                    window.location.href = '../dashboard/client.php';
+                    window.location.href = '../dashboard/clients/index.php';
                     break;
                 }
               } else {

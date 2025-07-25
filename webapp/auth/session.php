@@ -11,3 +11,12 @@ if (isset($_SESSION['user'])) {
     http_response_code(401);
     echo json_encode(['status' => 'not_logged_in']);
 }
+
+echo "<br><br>";
+
+$user = $_SESSION['user'];
+$fullname = $user['first_name'] ." ". $user['last_name'];
+$uid =$user['id'];
+echo $fullname;
+echo "<br>";
+echo $uid;
