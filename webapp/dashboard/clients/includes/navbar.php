@@ -20,7 +20,12 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center h4">
                 <div class="nav-item d-flex align-items-center">
-                  Welcome to Absolute safety <?php echo "Tushar"?>
+                  Welcome to Absolute safety 
+                  <?php 
+                    $user = $_SESSION['user'];
+                    $fullname = $user['first_name'] ." ". $user['last_name'];
+                    echo $fullname;
+                  ?>
                 </div>
               </div>
               <!-- /Search -->

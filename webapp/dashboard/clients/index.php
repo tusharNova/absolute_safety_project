@@ -59,7 +59,7 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                   data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src=" ../assets/img/avatars/1.png" alt
+                    <img src=" ../assets/img/avatars/user-img1.png" alt
                       class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
@@ -69,7 +69,7 @@
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src=" ../assets/img/avatars/1.png" alt
+                            <img src=" ../assets/img/avatars/user-img1.png" alt
                               class="w-px-40 h-auto rounded-circle" />
                           </div>
                         </div>
@@ -154,7 +154,7 @@
                   <!-- Account -->
                   <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
-                      <img src="./../assets/img/avatars/1.png" alt="user-avatar"
+                      <img src="./../assets/img/avatars/user-img1.png" alt="user-avatar"
                         class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                       <div class="button-wrapper">
                         <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
