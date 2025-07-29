@@ -1,4 +1,5 @@
 import 'package:absolute_safety/screen/dashboard/DownloadCertificatePage.dart';
+import 'package:absolute_safety/screen/dashboard/NotificationListScreen.dart';
 import 'package:absolute_safety/screen/dashboard/RenewalRemindersPage.dart';
 import 'package:absolute_safety/screen/dashboard/ScanQRCodePage.dart';
 import 'package:absolute_safety/screen/dashboard/machine_submit.dart';
@@ -101,27 +102,35 @@ class _DashboardScreenState extends State<DashboardScreen>
             ),
           ],
         ),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFF667EEA).withOpacity(0.25),
-                blurRadius: 10,
-                offset: Offset(0, 5),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationListScreen()),
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
-          ),
-          child: Icon(
-            Icons.notifications_outlined,
-            color: Colors.white,
-            size: 24,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF667EEA).withOpacity(0.25),
+                  blurRadius: 10,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: Colors.white,
+              size: 24,
+            ),
           ),
         ),
       ],
