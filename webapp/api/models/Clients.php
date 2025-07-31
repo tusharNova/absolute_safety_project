@@ -32,7 +32,7 @@ class Clients{
     
     public function create($data){
         
-        $sql = "INSERT INTO clients (username, password, first_name, last_name, email, company_name, contact, address, state, pincode, status) VALUES (:username, :password, :first_name, :last_name, :email, :company_name, :contact, :address, :state, :pincode, :status)";
+        $sql = "INSERT INTO clients (username, password, first_name, last_name, email, company_name, contact, address, state, pincode, status) VALUES (:username, :password, :first_name, :last_name, :email, :company_name, :contact, :address, :state, :pincode, 'Inactive')";
         $stmt = $this->db->prepare($sql);
 
         $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -46,7 +46,7 @@ class Clients{
         $stmt->bindParam(':address', $data['address']);
         $stmt->bindParam(':state', $data['state']);
         $stmt->bindParam(':pincode', $data['pincode']);
-        $stmt->bindParam(':status', $data['status']);
+        // $stmt->bindParam(':status', '');
 
         if ($stmt->execute()) {
             return $this->getById($this->db->lastInsertId());

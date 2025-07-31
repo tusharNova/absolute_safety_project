@@ -48,9 +48,9 @@ class ClientHandler {
         // }
 
         // Check if email already exists
-        if ($this->client->emailExists($input['email'])) {
-            Response::error('Email already exists', 409);
-        }
+        // if ($this->client->emailExists($input['email'])) {
+        //     Response::error('Email already exists', 409);
+        // }
 
         try {
             $new_client = $this->client->create($input);
