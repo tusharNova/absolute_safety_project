@@ -1,0 +1,240 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Absolute Safety API",
+    "version": "1.0.0",
+    "description": "API for managing clients and engineers."
+  },
+  "servers": [
+    {
+      "url": "http://localhost/absolute_safety_project/webapp/api",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/clients": {
+      "get": {
+        "summary": "Get all clients",
+        "responses": {
+          "200": {
+            "description": "List of clients"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new client",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Client created successfully"
+          }
+        }
+      }
+    },
+    "/clients/{id}": {
+      "get": {
+        "summary": "Get a client by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client data"
+          },
+          "404": {
+            "description": "Client not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a client by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a client by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client deleted"
+          }
+        }
+      }
+    },
+    "/engineers": {
+      "get": {
+        "summary": "Get all engineers",
+        "responses": {
+          "200": {
+            "description": "List of engineers"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new engineer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Engineer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Engineer created successfully"
+          }
+        }
+      }
+    },
+    "/engineers/{id}": {
+      "get": {
+        "summary": "Get an engineer by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Engineer data"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an engineer by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Engineer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Engineer updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an engineer by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Engineer deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Client": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "first_name": { "type": "string" },
+          "last_name": { "type": "string" },
+          "email": { "type": "string" },
+          "company_name": { "type": "string" },
+          "contact": { "type": "string" },
+          "address": { "type": "string" },
+          "state": { "type": "string" },
+          "pincode": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      },
+      "Engineer": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "first_name": { "type": "string" },
+          "last_name": { "type": "string" },
+          "email": { "type": "string" },
+          "contact": { "type": "string" },
+          "area": { "type": "string" },
+          "experience_years": { "type": "string" }
+        }
+      }
+    }
+  }
+}
