@@ -96,7 +96,7 @@ session_start();
             data: JSON.stringify(data),
 
             success: function (response) {
-              // alert(response);
+              alert(response);
               if (response.status === "success") {
 
                 switch(response.role) {
@@ -106,20 +106,18 @@ session_start();
                     break;
                   case 'engineers':
                     alert(`Welcome! Logged in as ${response.role}`);
-                    // console.log(`Welcome! Logged in as ${response.user}`);
+                    
                     window.location.href = '../dashboard/engineers/index.php';
                     break;
                   case 'clients':
                     alert(`Welcome! Logged in as ${response.role}`);
-                    // console.log(`Welcome! Logged in as ${response.user.username}`);
+                   
                     window.location.href = '../dashboard/clients/index.php';
                     break;
                 }
               } else {
                 alert("Invalid username or password");
               }
-
-              // window.location.href = '/dashboard';
             },
             error: function (xhr, status, error) {
               alert("Invalid username or password");

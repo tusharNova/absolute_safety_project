@@ -14,9 +14,9 @@ if (isset($_SESSION['user'])) {
 
 echo "<br><br>";
 
-$user = $_SESSION['user'];
-$fullname = $user['first_name'] ." ". $user['last_name'];
-$uid =$user['id'];
-echo $fullname;
-echo "<br>";
-echo $uid;
+// $user = $_SESSION['user'];
+// $fullname = $user['first_name'] ." ". $user['last_name'];
+// $uid =$user['id'];
+// echo $fullname;
+// echo "<br>";
+// echo $uid;

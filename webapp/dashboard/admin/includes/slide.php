@@ -1,114 +1,107 @@
+<aside
+  id="layout-menu"
+  class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="index.html" class="app-brand-link">
+      <span class="app-brand-logo demo">
 
-        <aside
-          id="layout-menu"
-          class="layout-menu menu-vertical menu bg-menu-theme"
-        >
-          <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
-              <span class="app-brand-logo demo">
-                <img
-                  src="../../assets/img/absolute-safety-logo.jpeg"
-                  style="height: 55px; width: auto"
-                />
-              </span>
-              <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Absolute Safety</span> -->
-            </a>
+        <img src="../../../assets/img/absolute-safety-logo.jpeg" class="img-fluid" alt="" style="height: 55px; width: auto">
+      </span>
+      <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Absolute Safety</span> -->
+    </a>
 
-            <a
-              href="javascript:void(0);"
-              class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
-            >
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
+    <a
+      href="javascript:void(0);"
+      class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
 
-          <div class="menu-inner-shadow"></div>
+  <div class="menu-inner-shadow"></div>
 
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-              </a>
-            </li>
+  <ul class="menu-inner py-1">
+    <!-- Dashboard -->
+    <li class="menu-item active">
+      <a href="index.html" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Dashboard</div>
+      </a>
+    </li>
 
-            <!-- Layouts -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Info</div>
-              </a>
+    <!-- Layouts -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-layout"></i>
+        <div data-i18n="Layouts">Info</div>
+      </a>
 
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
-                    <div data-i18n="Without menu">Without menu</div>
-                  </a>
-                </li>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="layouts-without-menu.html" class="menu-link">
+            <div data-i18n="Without menu">Without menu</div>
+          </a>
+        </li>
 
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+        <li class="menu-item">
+          <a href="layouts-blank.html" class="menu-link">
+            <div data-i18n="Blank">Blank</div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Manage</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Client</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a
-                    href="pages/AddClient.php"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Account">Add Clients</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Engineers</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a
-                    href="pages/AddEngr.php"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Account">Add Engineers</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Manage</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">Client</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a
+            href="pages/addClient.php"
+            class="menu-link">
+            <div data-i18n="Account">Add Clients</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">Engineers</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a
+            href="pages/addEngr.php"
+            class="menu-link">
+            <div data-i18n="Account">Add Engineers</div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-            <!-- Components -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Components</span>
-            </li>
+    <!-- Components -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Components</span>
+    </li>
 
-            <!-- User interface -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface">User interface</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="ui-accordion.html" class="menu-link">
-                    <div data-i18n="Accordion">Accordion</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+    <!-- User interface -->
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="User interface">User interface</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="ui-accordion.html" class="menu-link">
+            <div data-i18n="Accordion">Accordion</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
