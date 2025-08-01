@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:absolute_safety/reponsive/responsive.dart';
 import 'package:absolute_safety/reponsive/sizedConfig.dart';
-import 'package:absolute_safety/screen/authentication/login.dart';
+import 'package:absolute_safety/screen/authentication/diretion_page.dart';
+import 'package:absolute_safety/screen/authentication/engineer_login.dart';
 import 'package:absolute_safety/style/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,8 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              DirectionPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },

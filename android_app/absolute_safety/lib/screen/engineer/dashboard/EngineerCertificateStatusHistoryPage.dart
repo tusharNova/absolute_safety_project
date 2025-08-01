@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CertificateStatusHistoryPage extends StatefulWidget {
-  const CertificateStatusHistoryPage({super.key});
+class Engineercertificatestatushistorypage extends StatefulWidget {
+  const Engineercertificatestatushistorypage({super.key});
 
   @override
   _CertificateStatusHistoryPageState createState() =>
@@ -9,7 +9,7 @@ class CertificateStatusHistoryPage extends StatefulWidget {
 }
 
 class _CertificateStatusHistoryPageState
-    extends State<CertificateStatusHistoryPage>
+    extends State<Engineercertificatestatushistorypage>
     with TickerProviderStateMixin {
   final _scrollController = ScrollController();
   late AnimationController _animationController;
@@ -939,23 +939,4 @@ class CertificateRecord {
     required this.description,
     required this.validityPeriod,
   });
-}
-
-// Usage in main.dart
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Certificate Status & History',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: CertificateStatusHistoryPage(),
-    );
-  }
 }

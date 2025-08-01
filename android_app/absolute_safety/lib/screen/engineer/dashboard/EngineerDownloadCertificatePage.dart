@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DownloadCertificatePage extends StatefulWidget {
+class Engineerdownloadcertificatepage extends StatefulWidget {
   @override
   _DownloadCertificatePageState createState() =>
       _DownloadCertificatePageState();
 }
 
-class _DownloadCertificatePageState extends State<DownloadCertificatePage> {
+class _DownloadCertificatePageState
+    extends State<Engineerdownloadcertificatepage> {
   List<CertificateItem> certificates = [
     CertificateItem(
       title: 'Course Completion Certificate',

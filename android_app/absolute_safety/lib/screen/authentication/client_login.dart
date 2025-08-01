@@ -1,20 +1,24 @@
+import 'package:absolute_safety/api/authentication/login_api.dart';
 import 'package:absolute_safety/screen/authentication/Registration.dart';
-import 'package:absolute_safety/screen/dashboard.dart';
+import 'package:absolute_safety/screen/client/client_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class ClientLogin extends StatefulWidget {
+  const ClientLogin({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ClientLogin> createState() => _ClientLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+class _ClientLoginState extends State<ClientLogin>
+    with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _slideController;
+  late AnimationController _logoController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  late Animation<double> _logoAnimation;
 
   bool _isPasswordVisible = false;
   bool _isLoading = false;
@@ -27,12 +31,17 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     super.initState();
 
     _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _logoController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -42,12 +51,19 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
     _slideAnimation =
         Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
-          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+          CurvedAnimation(parent: _slideController, curve: Curves.elasticOut),
         );
 
+    _logoAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _logoController, curve: Curves.bounceOut),
+    );
+
     // Start animations
-    _fadeController.forward();
-    Future.delayed(const Duration(milliseconds: 300), () {
+    _logoController.forward();
+    Future.delayed(const Duration(milliseconds: 200), () {
+      _fadeController.forward();
+    });
+    Future.delayed(const Duration(milliseconds: 400), () {
       _slideController.forward();
     });
   }
@@ -56,6 +72,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
+    _logoController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -64,6 +81,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final isMobile = screenWidth < 600;
 
     return Scaffold(
@@ -75,25 +93,27 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.teal.shade50,
-              Colors.blue.shade50,
-              Colors.indigo.shade50,
+              const Color(0xFF667eea),
+              const Color(0xFF764ba2),
+              const Color(0xFF6B73FF),
             ],
+            stops: const [0.0, 0.5, 1.0],
           ),
         ),
         child: Stack(
           children: [
-            // Background decoration
-            ...List.generate(6, (index) {
+            // Background decorative elements
+            ...List.generate(8, (index) {
               return Positioned(
                 top: (index * 120.0) - 50,
-                right: (index * 60.0) - 150,
-                child: Container(
-                  width: 100 + (index * 30.0),
-                  height: 100 + (index * 30.0),
+                right: (index * 80.0) - 200,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 800 + (index * 100)),
+                  width: 80 + (index * 20.0),
+                  height: 80 + (index * 20.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withOpacity(0.05),
                   ),
                 ),
               );
@@ -102,41 +122,88 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             // Main content
             Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24.0),
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: SlideTransition(
-                    position: _slideAnimation,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        // Logo section
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.teal.withOpacity(0.3),
-                                blurRadius: 20,
-                                spreadRadius: 5,
-                              ),
-                            ],
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 24.0 : 48.0,
+                  vertical: 32.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Logo section with animation
+                    ScaleTransition(
+                      scale: _logoAnimation,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 40),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.15),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 2,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: ClipOval(
                           child: Image.asset(
                             "assets/logo/logo.png",
-                            width: isMobile
-                                ? screenWidth * 0.2
-                                : screenWidth * 0.1,
-                            height: isMobile
-                                ? screenWidth * 0.2
-                                : screenWidth * 0.1,
+                            width: isMobile ? 80 : 100,
+                            height: isMobile ? 80 : 100,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                      ),
+                    ),
 
-                        ConstrainedBox(
+                    // Welcome section
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Client Portal',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              fontSize: isMobile ? 28 : 34,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 4,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Access your safety reports & updates',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              color: Colors.white.withOpacity(0.9),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 40),
+
+                    // Login form
+                    SlideTransition(
+                      position: _slideAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeAnimation,
+                        child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 420),
                           child: Container(
                             padding: const EdgeInsets.all(32.0),
@@ -145,10 +212,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               borderRadius: BorderRadius.circular(24.0),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withOpacity(0.15),
                                   blurRadius: 30,
                                   spreadRadius: 0,
-                                  offset: const Offset(0, 10),
+                                  offset: const Offset(0, 15),
                                 ),
                               ],
                               border: Border.all(
@@ -167,39 +234,39 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     'Welcome Back!',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
-                                      fontSize: isMobile ? 28 : 32,
+                                      fontSize: isMobile ? 24 : 28,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.grey[800],
+                                      color: const Color(0xFF2D3748),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    'Please sign in to your account',
+                                    'Please sign in to your client account',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.grey[600],
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  const SizedBox(height: 40),
+                                  const SizedBox(height: 32),
 
                                   // Email field
                                   _buildModernTextField(
                                     controller: _emailController,
-                                    label: 'Email',
+                                    label: 'Email Address',
                                     hint: 'Enter your email',
-                                    icon: Icons.email_outlined,
+                                    icon: Icons.person_outline_rounded,
                                     keyboardType: TextInputType.emailAddress,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your email';
                                       }
-                                      if (!RegExp(
-                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                                      ).hasMatch(value)) {
-                                        return 'Please enter a valid email';
-                                      }
+                                      // if (!RegExp(
+                                      //   r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                      // ).hasMatch(value)) {
+                                      //   return 'Please enter a valid email';
+                                      // }
                                       return null;
                                     },
                                   ),
@@ -210,14 +277,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     controller: _passwordController,
                                     label: 'Password',
                                     hint: 'Enter your password',
-                                    icon: Icons.lock_outline,
+                                    icon: Icons.lock_outline_rounded,
                                     obscureText: !_isPasswordVisible,
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         _isPasswordVisible
                                             ? Icons.visibility_outlined
                                             : Icons.visibility_off_outlined,
-                                        color: Colors.grey[600],
+                                        color: const Color(0xFF667eea),
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -230,9 +297,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your password';
                                       }
-                                      if (value.length < 6) {
-                                        return 'Password must be at least 6 characters';
-                                      }
+                                      // if (value.length < 6) {
+                                      //   return 'Password must be at least 6 characters';
+                                      // }
                                       return null;
                                     },
                                   ),
@@ -249,65 +316,46 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                       child: Text(
                                         'Forgot Password?',
                                         style: GoogleFonts.poppins(
-                                          color: Colors.teal,
+                                          color: const Color(0xFF667eea),
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14,
                                         ),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 30),
+                                  const SizedBox(height: 24),
 
                                   // Login button
                                   _buildModernButton(
-                                    text: 'Sign In',
+                                    text: 'Sign In to Portal',
                                     onPressed: _handleLogin,
                                     isLoading: _isLoading,
                                   ),
-                                  const SizedBox(height: 20),
-
-                                  Divider(),
-
-                                  // Sign up link
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Don't have an account? ",
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.grey[700],
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Registration(),
-                                            ),
-                                          );
-                                        },
-                                        child: Text(
-                                          'Sign Up',
-                                          style: GoogleFonts.poppins(
-                                            color: Colors.teal,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  const SizedBox(height: 24),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+
+                    const SizedBox(height: 32),
+
+                    // Footer
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Text(
+                        "Secure • Trusted • Reliable",
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white.withOpacity(0.7),
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -333,16 +381,20 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       obscureText: obscureText,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: GoogleFonts.poppins(fontSize: 16),
+      style: GoogleFonts.poppins(fontSize: 16, color: const Color(0xFF2D3748)),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: Icon(icon, color: Colors.teal),
+        prefixIcon: Icon(icon, color: const Color(0xFF667eea), size: 22),
         suffixIcon: suffixIcon,
-        labelStyle: GoogleFonts.poppins(color: Colors.grey[600]),
-        hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+        labelStyle: GoogleFonts.poppins(color: Colors.grey[600], fontSize: 14),
+        hintStyle: GoogleFonts.poppins(color: Colors.grey[400], fontSize: 14),
         filled: true,
-        fillColor: Colors.grey[50],
+        fillColor: const Color(0xFFF7FAFC),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey[300]!),
@@ -353,7 +405,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.teal, width: 2),
+          borderSide: const BorderSide(color: Color(0xFF667eea), width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -376,16 +428,16 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       height: 56,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.teal, Colors.tealAccent],
+          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.teal.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+            color: const Color(0xFF667eea).withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -400,11 +452,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
         child: isLoading
             ? const SizedBox(
-                width: 20,
-                height: 20,
+                width: 24,
+                height: 24,
                 child: CircularProgressIndicator(
                   color: Colors.white,
-                  strokeWidth: 2,
+                  strokeWidth: 2.5,
                 ),
               )
             : Text(
@@ -413,66 +465,41 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
+                  letterSpacing: 0.5,
                 ),
               ),
       ),
     );
   }
 
-  Widget _buildSocialButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onPressed,
-  }) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[300]!),
-      ),
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, color: color, size: 20),
-        label: Text(
-          label,
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[700],
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-    );
-  }
-
   Future<void> _handleLogin() async {
-    // if (_formKey.currentState!.validate()) {
-    setState(() {
-      _isLoading = true;
-    });
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
 
-    // Simulate login process
-    await Future.delayed(const Duration(seconds: 2));
+      // Simulate login process
+      await Future.delayed(const Duration(seconds: 2));
 
-    setState(() {
-      _isLoading = false;
-    });
+      setState(() {
+        _isLoading = false;
+      });
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DashboardScreen()),
-    );
+      var result = await LoginApi.login(
+        _emailController.text.toString(),
+        _passwordController.text.toString(),
+      );
 
-    // TODO: Implement actual login logic
-    print('Login: ${_emailController.text}, ${_passwordController.text}');
-    // }
+      if (result == "clients") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ClientDashboard()),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Login failed")));
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MachineInspectionRequestPage extends StatefulWidget {
-  const MachineInspectionRequestPage({super.key});
+class EngineermachineSubmit extends StatefulWidget {
+  const EngineermachineSubmit({super.key});
 
   @override
   _MachineInspectionRequestPageState createState() =>
@@ -9,7 +9,7 @@ class MachineInspectionRequestPage extends StatefulWidget {
 }
 
 class _MachineInspectionRequestPageState
-    extends State<MachineInspectionRequestPage>
+    extends State<EngineermachineSubmit>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _scrollController = ScrollController();
