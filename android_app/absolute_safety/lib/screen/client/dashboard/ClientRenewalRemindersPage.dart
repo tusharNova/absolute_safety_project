@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class RenewalRemindersPage extends StatefulWidget {
+class Clientrenewalreminderspage extends StatefulWidget {
   @override
   _RenewalRemindersPageState createState() => _RenewalRemindersPageState();
 }
 
-class _RenewalRemindersPageState extends State<RenewalRemindersPage> {
+class _RenewalRemindersPageState extends State<Clientrenewalreminderspage> {
   List<RenewalItem> renewalItems = [
     RenewalItem(
       title: 'Netflix Subscription',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NotificationListScreen extends StatelessWidget {
+class Clientnotificationlistscreen extends StatelessWidget {
   final List<NotificationItem> notifications = [
     NotificationItem(
       title: 'Machine Approved',
@@ -54,7 +54,7 @@ class NotificationListScreen extends StatelessWidget {
     ),
   ];
 
-  NotificationListScreen({super.key});
+  Clientnotificationlistscreen({super.key});
 
   @override
   Widget build(BuildContext context) {

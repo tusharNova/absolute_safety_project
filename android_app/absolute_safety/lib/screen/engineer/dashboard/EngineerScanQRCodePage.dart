@@ -3,14 +3,14 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class ScanQRCodePage extends StatefulWidget {
-  const ScanQRCodePage({super.key});
+class Engineerscanqrcodepage extends StatefulWidget {
+  const Engineerscanqrcodepage({super.key});
 
   @override
   _ScanQRCodePageState createState() => _ScanQRCodePageState();
 }
 
-class _ScanQRCodePageState extends State<ScanQRCodePage>
+class _ScanQRCodePageState extends State<Engineerscanqrcodepage>
     with TickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;

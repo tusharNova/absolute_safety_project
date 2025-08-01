@@ -1,5 +1,5 @@
-import 'package:absolute_safety/screen/authentication/login.dart';
-import 'package:absolute_safety/screen/dashboard.dart';
+import 'package:absolute_safety/screen/authentication/engineer_login.dart';
+// import 'package:absolute_safety/screen/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:absolute_safety/style/color.dart';
@@ -102,12 +102,12 @@ class _RegistrationState extends State<Registration>
 
     _showSnackBar('Registration Submitted Successfully!', Colors.green);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => DashboardScreen()),
-      );
-    });
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => DashboardScreen()),
+    //   );
+    // });
     // }
   }
 
@@ -429,35 +429,35 @@ class _RegistrationState extends State<Registration>
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            PageRouteBuilder(
-                                              pageBuilder:
-                                                  (
-                                                    context,
-                                                    animation,
-                                                    secondaryAnimation,
-                                                  ) => const LoginPage(),
-                                              transitionsBuilder:
-                                                  (
-                                                    context,
-                                                    animation,
-                                                    secondaryAnimation,
-                                                    child,
-                                                  ) {
-                                                    return SlideTransition(
-                                                      position: Tween<Offset>(
-                                                        begin: const Offset(
-                                                          -1.0,
-                                                          0.0,
-                                                        ),
-                                                        end: Offset.zero,
-                                                      ).animate(animation),
-                                                      child: child,
-                                                    );
-                                                  },
-                                            ),
-                                          );
+                                          // Navigator.pushReplacement(
+                                          //   context,
+                                          //   // PageRouteBuilder(
+                                          //   //   pageBuilder:
+                                          //   //       (
+                                          //   //         context,
+                                          //   //         animation,
+                                          //   //         secondaryAnimation,
+                                          //   //       ) => const LoginPage(),
+                                          //   //   transitionsBuilder:
+                                          //   //       (
+                                          //   //         context,
+                                          //   //         animation,
+                                          //   //         secondaryAnimation,
+                                          //   //         child,
+                                          //   //       ) {
+                                          //   //         return SlideTransition(
+                                          //   //           position: Tween<Offset>(
+                                          //   //             begin: const Offset(
+                                          //   //               -1.0,
+                                          //   //               0.0,
+                                          //   //             ),
+                                          //   //             end: Offset.zero,
+                                          //   //           ).animate(animation),
+                                          //   //           child: child,
+                                          //   //         );
+                                          //   //       },
+                                          //   // ),
+                                          // );
                                         },
                                         child: Text(
                                           'Sign In',

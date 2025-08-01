@@ -1,20 +1,26 @@
-import 'package:absolute_safety/screen/dashboard/DownloadCertificatePage.dart';
-import 'package:absolute_safety/screen/dashboard/NotificationListScreen.dart';
-import 'package:absolute_safety/screen/dashboard/RenewalRemindersPage.dart';
-import 'package:absolute_safety/screen/dashboard/ScanQRCodePage.dart';
-import 'package:absolute_safety/screen/dashboard/machine_submit.dart';
-import 'package:absolute_safety/screen/dashboard/CertificateStatusHistoryPage.dart';
+// import 'package:absolute_safety/screen/dashboard/DownloadCertificatePage.dart';
+// import 'package:absolute_safety/screen/dashboard/NotificationListScreen.dart';
+// import 'package:absolute_safety/screen/dashboard/RenewalRemindersPage.dart';
+// import 'package:absolute_safety/screen/dashboard/ScanQRCodePage.dart';
+// import 'package:absolute_safety/screen/dashboard/machine_submit.dart';
+// import 'package:absolute_safety/screen/dashboard/CertificateStatusHistoryPage.dart';
+import 'package:absolute_safety/screen/engineer/dashboard/EngineerCertificateStatusHistoryPage.dart';
+import 'package:absolute_safety/screen/engineer/dashboard/EngineerDownloadCertificatePage.dart';
+import 'package:absolute_safety/screen/engineer/dashboard/EngineerRenewalRemindersPage.dart';
+import 'package:absolute_safety/screen/engineer/dashboard/EngineerScanQRCodePage.dart';
+import 'package:absolute_safety/screen/engineer/dashboard/Engineermachine_submit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class EngineerDashboard extends StatefulWidget {
+  const EngineerDashboard({super.key});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen>
+class _DashboardScreenState extends State<EngineerDashboard>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -104,10 +110,10 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationListScreen()),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => NotificationListScreen()),
+            // );
           },
           child: Container(
             padding: EdgeInsets.all(12),
@@ -144,35 +150,35 @@ class _DashboardScreenState extends State<DashboardScreen>
         'subtitle': 'Request new inspection',
         'icon': Icons.add_task,
         'color': Color(0xFF667EEA),
-        'route': MachineInspectionRequestPage(),
+        'route': EngineermachineSubmit(),
       },
       {
         'title': 'Certificate Status & History',
         'subtitle': 'Track your certificates',
         'icon': Icons.history,
         'color': Color(0xFF764BA2),
-        'route': CertificateStatusHistoryPage(),
+        'route': Engineercertificatestatushistorypage(),
       },
       {
         'title': 'Renewal Reminders',
         'subtitle': 'Stay updated on renewals',
         'icon': Icons.notification_important,
         'color': Color(0xFF11998E),
-        'route': RenewalRemindersPage(),
+        'route': Engineerrenewalreminderspage(),
       },
       {
         'title': 'Download Certificate',
         'subtitle': 'Get your PDF certificate',
         'icon': Icons.download,
         'color': Color(0xFFE056FD),
-        'route': DownloadCertificatePage(),
+        'route': Engineerdownloadcertificatepage(),
       },
       {
         'title': 'Scan QR Code',
         'subtitle': 'Verify certificate authenticity',
         'icon': Icons.qr_code_scanner,
         'color': Color(0xFFFF6B6B),
-        'route': ScanQRCodePage(),
+        'route': Engineerscanqrcodepage(),
       },
     ];
 
@@ -193,7 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           subtitle: option['subtitle'] as String,
           icon: option['icon'] as IconData,
           color: option['color'] as Color,
-          route: option['route'],
+          route: option['route'] as Widget,
           delay: Duration(milliseconds: 100 * index),
         );
       },
@@ -205,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     required String subtitle,
     required IconData icon,
     required Color color,
-    required var route,
+    required Widget route,
     required Duration delay,
   }) {
     return TweenAnimationBuilder<double>(
@@ -218,11 +224,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: GestureDetector(
             onTap: () {
               HapticFeedback.lightImpact();
-              // Navigator.pushNamed(context, route);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => route),
-              );
+              Get.to(() => route);
             },
             child: Container(
               padding: EdgeInsets.all(20),
