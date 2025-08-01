@@ -1,13 +1,13 @@
 🧩 System Overview
 📱 Android App (Client):
-- Register/Login
+- Login :-> done with api intigration
 
-- Submit machine inspection request
+- Submit machine inspection request done in client and engineer
 
--View certificate status & history
+-View certificate status & history done in client and engineer
 
-- Get renewal reminders
+- Get renewal reminders done in client and engineer
 
-- Download final certificate (PDF)
+- Download final certificate (PDF) done in client and engineer
 
-- Scan QR code to verify certificate
+- Scan QR code to verify certificate done in client and engineer
