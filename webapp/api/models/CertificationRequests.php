@@ -34,6 +34,7 @@ class CertificationRequests {
         $stmt->bindParam(':client_id', $client_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // return $sql;
     }
 
     public function getByEngineerId($engineer_id) {
@@ -52,12 +53,12 @@ class CertificationRequests {
         
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindParam(':client_id', $data['client_id'], PDO::PARAM_INT);
-        $stmt->bindParam(':machine_name', $data['machine_name']);
-        $stmt->bindParam(':machine_details', $data['machine_details']);
-        $stmt->bindParam(':assigned_engineer', $data['assigned_engineer'], PDO::PARAM_INT);
-        $stmt->bindParam(':status', $data['status'] ?? 'pending');
-        $stmt->bindParam(':expiry_months', $data['expiry_months'], PDO::PARAM_INT);
+        $stmt->bindValue(':client_id', $data['client_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':machine_name', $data['machine_name']);
+        $stmt->bindValue(':machine_details', $data['machine_details']);
+        $stmt->bindValue(':assigned_engineer', '');
+        $stmt->bindValue(':status', 'pending');
+        $stmt->bindValue(':expiry_months', '');
 
         if ($stmt->execute()) {
             return $this->getById($this->db->lastInsertId());
