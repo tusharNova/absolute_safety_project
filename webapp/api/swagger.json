@@ -3,7 +3,7 @@
   "info": {
     "title": "Absolute Safety API",
     "version": "1.0.0",
-    "description": "API for managing clients and engineers."
+    "description": "API for managing clients, engineers, and certification requests."
   },
   "servers": [
     {
@@ -202,6 +202,219 @@
           }
         }
       }
+    },
+    "/certification-requests": {
+      "get": {
+        "summary": "Get all certification requests",
+        "responses": {
+          "200": {
+            "description": "List of certification requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CertificationRequest"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new certification request",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CertificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Certification request created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/certification-requests/{id}": {
+      "get": {
+        "summary": "Get a certification request by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Certification request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificationRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Request not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a certification request",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CertificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Certification request updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a certification request",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Certification request deleted"
+          }
+        }
+      }
+    },
+    "/certification-requests/client/{client_id}": {
+      "get": {
+        "summary": "Get certification requests by client ID",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of certification requests for the client",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CertificationRequest"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/certification-requests/engineer/{engineer_id}": {
+      "get": {
+        "summary": "Get certification requests by engineer ID",
+        "parameters": [
+          {
+            "name": "engineer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of certification requests assigned to the engineer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CertificationRequest"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/certification-requests/{id}/status": {
+      "put": {
+        "summary": "Update certification request status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": ["pending", "under_review", "completed", "certified"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status updated successfully"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -234,6 +447,24 @@
           "area": { "type": "string" },
           "experience_years": { "type": "string" }
         }
+      },
+      "CertificationRequest": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "readOnly": true },
+          "client_id": { "type": "integer" },
+          "machine_name": { "type": "string" },
+          "machine_details": { "type": "string" },
+          "request_date": { "type": "string", "format": "date-time" },
+          "assigned_engineer": { "type": "integer" },
+          "status": { 
+            "type": "string",
+            "enum": ["pending", "under_review", "completed", "certified"],
+            "default": "pending"
+          },
+          "expiry_months": { "type": "integer" }
+        },
+        "required": ["client_id", "machine_name"]
       }
     }
   }

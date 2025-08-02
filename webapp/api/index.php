@@ -14,6 +14,7 @@ require_once(__DIR__ . '/helpers/Response.php');
 
 require_once(__DIR__ . '/handler/ClientsHandler.php');
 require_once(__DIR__ . '/handler/EnginnersHandler.php');
+require_once(__DIR__ . '/handler/CertificationRequestsHandler.php');
 // webapp\api\handler\ClientsHandler.php
 
 // Parse the URL - Handle different URL patterns
@@ -54,13 +55,79 @@ try {
         case 'enginners':
             $handler = new EngineerHandler();
             break;
+        case 'certification-requests':
+            $handler = new CertificationRequestsHandler();
+
+            // Handle additional routes
+            if (isset($path_parts[2])) {
+                $sub_resource = $path_parts[2];
+                $sub_id = $path_parts[3] ?? null;
+
+                switch ($sub_resource) {
+                    case 'client':
+                        if ($method === 'GET' && $sub_id) {
+                            $handler->getByClientId($sub_id);
+                        } else {
+                            Response::error('Invalid request', 400);
+                        }
+                        break;
+                    case 'engineer':
+                        if ($method === 'GET' && $sub_id) {
+                            $handler->getByEngineerId($sub_id);
+                        } else {
+                            Response::error('Invalid request', 400);
+                        }
+                        break;
+                    case 'status':
+                        if ($method === 'PUT' && $id) {
+                            $handler->updateStatus($id);
+                        } else {
+                            Response::error('Invalid request', 400);
+                        }
+                        break;
+                    default:
+                        Response::error('Resource not found', 404);
+                }
+            } else {
+                switch ($method) {
+                    case 'GET':
+                        if ($id) {
+                            $handler->getById($id);
+                        } else {
+                            $handler->getAll();
+                        }
+                        break;
+                    case 'POST':
+                        $handler->create();
+                        break;
+                    case 'PUT':
+                        if ($id) {
+                            $handler->update($id);
+                        } else {
+                            Response::error('ID required for update', 400);
+                        }
+                        break;
+                    case 'DELETE':
+                        if ($id) {
+                            $handler->delete($id);
+                        } else {
+                            Response::error('ID required for delete', 400);
+                        }
+                        break;
+                    default:
+                        Response::error('Method not allowed', 405);
+                }
+            }
+            break;
+
         case '':
             // API root - show available endpoints
             Response::success([
                 'message' => 'REST API Demo',
                 'endpoints' => [
                     'clients' => '/api/clients',
-                    'subjects' => '/api/enginners'
+                    'subjects' => '/api/enginners',
+                    'certification-requests' => '/api/certification-requests',
                 ],
                 'methods' => ['GET', 'POST', 'PUT', 'DELETE']
             ], 'API is working');
@@ -102,4 +169,3 @@ try {
 } catch (Exception $e) {
     Response::error('Server error: ' . $e->getMessage(), 500);
 }
-?>
