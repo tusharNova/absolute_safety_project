@@ -47,6 +47,7 @@ error_log("Resource: " . $resource);
 error_log("ID: " . $id);
 error_log("Method: " . $method);
 
+
 try {
     switch ($resource) {
         case 'clients':
@@ -59,9 +60,11 @@ try {
             $handler = new CertificationRequestsHandler();
 
             // Handle additional routes
-            if (isset($path_parts[2])) {
-                $sub_resource = $path_parts[2];
-                $sub_id = $path_parts[3] ?? null;
+            if (isset($path_parts[1])) {
+                $sub_resource = $path_parts[1];
+                $sub_id = $path_parts[2
+                
+                ] ?? null;
 
                 switch ($sub_resource) {
                     case 'client':
