@@ -142,8 +142,8 @@ $user = $_SESSION['user'];
         // load Certification Requests funtion call
         var clientId = $('#client_id').val();
         loadCertificationRequests(clientId);
-        
 
+        const API_BASE_URL = '../../api';
         // Get the current date
         const today = new Date();
         const year = today.getFullYear();
@@ -158,6 +158,7 @@ $user = $_SESSION['user'];
             // alert("submit");
             var clientId = $('#client_id').val();
             var formDataObj = {};
+
             formDataObj['client_id'] = clientId;
             $(this).serializeArray().forEach(function(item) {
                 formDataObj[item.name] = item.value;
@@ -166,8 +167,32 @@ $user = $_SESSION['user'];
             // formDataObj['client_id'] = 
             // 2. Convert object to JSON string
             var jsonData = JSON.stringify(formDataObj);
-            alert(jsonData);
-            console.log(jsonData);
+            // alert(jsonData);
+            // console.log(jsonData);
+            const endpoint = '/certification-requests';
+            const apiUrl = API_BASE_URL + endpoint;
+            $.ajax({
+                method: 'POST',
+                url: apiUrl,
+                data: jsonData,
+                dataType: "application/json",
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response);
+                    // alert(response);
+                    if (response.success) {
+                        alert('Inspection request Added');
+                        $("#formCreateRequest")[0].reset();
+                        loadCertificationRequests(clientId);
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    alert('An error occurred: ' + error);
+                }
+            });
 
         });
 
@@ -178,16 +203,16 @@ $user = $_SESSION['user'];
         });
 
         function loadCertificationRequests(clientId) {
-            // Construct the API URL dynamically with the provided client ID
-            var apiUrl =
-                `http://localhost/absolute_safety_project/webapp/api/certification-requests/client/${clientId}`;
 
+            const API_BASE_URL = '../../api';
+            // Construct the API URL dynamically with the provided client ID
+            var apiUrl = API_BASE_URL + `/certification-requests/client/${clientId}`;
             $.ajax({
                 url: apiUrl,
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
 
                     // Check if the API call was successful and data exists
                     if (response.success && response.data && response.data.length > 0) {
@@ -232,12 +257,12 @@ $user = $_SESSION['user'];
                     tableBody.empty();
                     tableBody.append(
                         `<tr><td colspan="6" class="text-center">Failed to load data. Please try again.</td></tr>`
-                        );
+                    );
                 }
             });
         }
 
-     
+
 
 
     });
