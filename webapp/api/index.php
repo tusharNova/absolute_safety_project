@@ -132,8 +132,15 @@ try {
                     'subjects' => '/api/enginners',
                     'certification-requests' => '/api/certification-requests',
                 ],
-                'methods' => ['GET', 'POST', 'PUT', 'DELETE']
+                'methods' => ['GET', 'POST', 'PUT', 'DELETE'],
+                'Sub-endpoint for certification-requests' => [
+                    'client with client_id [get method] for cliend id'=> '/api/certification-requests/client/{client_id}',
+                    'engineer with engineer_id [get method] for get certified details as per enginees'=> '/api/certification-requests/engineer/{engineer_id}',
+                    'update certtificate status [put method]'=> '/api/certification-requests/status/{eertificate_id}',
+
+                ]
             ], 'API is working');
+
             break;
         default:
             Response::error('Resource not found. Available resources: users, subjects', 404);
