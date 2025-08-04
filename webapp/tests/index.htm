@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Requests Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Certification Requests</h1>
+                <p class="mt-1 text-gray-600">Manage and track all machine certification requests.</p>
+            </div>
+            <button onclick="openModal('newRequestModal')" class="mt-4 sm:mt-0 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out flex items-center">
+                <i class="fas fa-plus mr-2"></i> New Request
+            </button>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="mb-4 p-4 bg-white rounded-lg shadow">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="col-span-1">
+                    <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
+                    <input type="text" id="search" placeholder="Search by machine or client..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div class="col-span-1">
+                    <label for="statusFilter" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select id="statusFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option>All</option>
+                        <option>Pending</option>
+                        <option>Under Review</option>
+                        <option>Completed</option>
+                        <option>Certified</option>
+                    </select>
+                </div>
+                 <div class="col-span-1">
+                    <label for="engineerFilter" class="block text-sm font-medium text-gray-700">Assigned Engineer</label>
+                    <select id="engineerFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option>All</option>
+                        <!-- Engineer options will be populated by JS -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requests Table -->
+        <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr class="border-b-2 border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th class="px-5 py-3">Request ID</th>
+                        <th class="px-5 py-3">Client</th>
+                        <th class="px-5 py-3">Machine</th>
+                        <th class="px-5 py-3">Request Date</th>
+                        <th class="px-5 py-3">Assigned Engineer</th>
+                        <th class="px-5 py-3">Status</th>
+                        <th class="px-5 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="requestsTableBody">
+                    <!-- Rows will be populated by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New/Edit Request Modal -->
+    <div id="newRequestModal" class="hidden">
+        <div class="modal-backdrop" onclick="closeModal('newRequestModal')"></div>
+        <div class="modal bg-white rounded-lg shadow-xl w-11/12 md:w-1/2 lg:w-1/3">
+            <div class="p-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-gray-800">New Certification Request</p>
+                    <div class="cursor-pointer z-50" onclick="closeModal('newRequestModal')">
+                        <i class="fas fa-times text-gray-500 hover:text-gray-800"></i>
+                    </div>
+                </div>
+                <form id="requestForm">
+                    <div class="mb-4">
+                        <label for="clientId" class="block text-gray-700 text-sm font-bold mb-2">Client</label>
+                        <select id="clientId" name="clientId" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <!-- Client options will be populated by JS -->
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="machineName" class="block text-gray-700 text-sm font-bold mb-2">Machine Name</label>
+                        <input type="text" id="machineName" name="machineName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="machineDetails" class="block text-gray-700 text-sm font-bold mb-2">Machine Details</label>
+                        <textarea id="machineDetails" name="machineDetails" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="expiryMonths" class="block text-gray-700 text-sm font-bold mb-2">Certification Validity (Months)</label>
+                        <input type="number" id="expiryMonths" name="expiryMonths" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" min="1" required>
+                    </div>
+                     <div class="mb-4">
+                        <label for="assignEngineer" class="block text-gray-700 text-sm font-bold mb-2">Assign Engineer</label>
+                        <select id="assignEngineer" name="assignEngineer" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                           <option value="">Assign Later</option>
+                           <!-- Engineer options will be populated by JS -->
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-end pt-4">
+                        <button type="button" onclick="closeModal('newRequestModal')" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg mr-2 hover:bg-gray-600">Cancel</button>
+                        <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // --- DUMMY DATA (for demonstration) ---
+        // In a real application, this data would come from your database via an API
+        const clients = [
+            { id: 1, name: 'Innovate Corp' },
+            { id: 2, name: 'Quantum Solutions' },
+            { id: 3, name: 'Apex Industries' }
+        ];
+
+        const engineers = [
+            { id: 1, name: 'Alice Johnson' },
+            { id: 2, name: 'Bob Williams' },
+            { id: 3, name: 'Charlie Brown' }
+        ];
+
+        let certificationRequests = [
+            { id: 101, clientId: 1, machine_name: 'CNC-M-001', machine_details: '5-axis milling machine', request_date: '2025-07-28 10:00:00', assigned_engineer: 1, status: 'certified', expiry_months: 12 },
+            { id: 102, clientId: 2, machine_name: 'Laser-Cutter-A2', machine_details: 'High precision CO2 laser', request_date: '2025-08-01 14:30:00', assigned_engineer: 2, status: 'under_review', expiry_months: 24 },
+            { id: 103, clientId: 1, machine_name: 'Robo-Arm-7', machine_details: 'Automated packaging arm', request_date: '2025-08-02 09:00:00', assigned_engineer: 1, status: 'completed', expiry_months: 6 },
+            { id: 104, clientId: 3, machine_name: 'Press-P-45', machine_details: 'Hydraulic press 50-ton', request_date: '2025-08-02 11:15:00', assigned_engineer: null, status: 'pending', expiry_months: 12 }
+        ];
+
+        // --- UTILITY FUNCTIONS ---
+        const getClientName = (id) => clients.find(c => c.id === id)?.name || 'N/A';
+        const getEngineerName = (id) => engineers.find(e => e.id === id)?.name || 'Unassigned';
+
+        const getStatusBadge = (status) => {
+            const baseClasses = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full';
+            switch (status.toLowerCase()) {
+                case 'certified': return `<span class="${baseClasses} bg-green-100 text-green-800">Certified</span>`;
+                case 'completed': return `<span class="${baseClasses} bg-blue-100 text-blue-800">Completed</span>`;
+                case 'under_review': return `<span class="${baseClasses} bg-yellow-100 text-yellow-800">Under Review</span>`;
+                case 'pending': return `<span class="${baseClasses} bg-red-100 text-red-800">Pending</span>`;
+                default: return `<span class="${baseClasses} bg-gray-100 text-gray-800">${status}</span>`;
+            }
+        };
+
+        // --- RENDER FUNCTIONS ---
+        function renderTable(requests) {
+            const tableBody = document.getElementById('requestsTableBody');
+            tableBody.innerHTML = '';
+            if (requests.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-10 text-gray-500">No requests found.</td></tr>`;
+                return;
+            }
+            requests.forEach(req => {
+                const row = `
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="px-5 py-5 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">#${req.id}</p>
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">${getClientName(req.clientId)}</p>
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">${req.machine_name}</p>
+                            <p class="text-gray-600 whitespace-no-wrap text-xs">${req.machine_details}</p>
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">${new Date(req.request_date).toLocaleDateString()}</p>
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">${getEngineerName(req.assigned_engineer)}</p>
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            ${getStatusBadge(req.status)}
+                        </td>
+                        <td class="px-5 py-5 text-sm">
+                            <button class="text-indigo-600 hover:text-indigo-900" title="Edit Request">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-900 ml-3" title="Delete Request">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function populateDropdowns() {
+            const clientSelect = document.getElementById('clientId');
+            clients.forEach(c => {
+                clientSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+            });
+
+            const engineerSelects = [document.getElementById('assignEngineer'), document.getElementById('engineerFilter')];
+            engineerSelects.forEach(select => {
+                engineers.forEach(e => {
+                    if(select.id === 'assignEngineer' || select.id === 'engineerFilter'){
+                       select.innerHTML += `<option value="${e.id}">${e.name}</option>`;
+                    }
+                });
+            });
+        }
+        
+        // --- MODAL HANDLING ---
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // --- EVENT LISTENERS & INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable(certificationRequests);
+            populateDropdowns();
+
+            const form = document.getElementById('requestForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const newRequest = {
+                    id: Math.max(...certificationRequests.map(r => r.id)) + 1, // simple ID generation
+                    clientId: parseInt(formData.get('clientId')),
+                    machine_name: formData.get('machineName'),
+                    machine_details: formData.get('machineDetails'),
+                    request_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                    assigned_engineer: formData.get('assignEngineer') ? parseInt(formData.get('assignEngineer')) : null,
+                    status: 'pending',
+                    expiry_months: parseInt(formData.get('expiryMonths'))
+                };
+                certificationRequests.unshift(newRequest); // Add to the top
+                renderTable(certificationRequests);
+                closeModal('newRequestModal');
+                form.reset();
+            });
+            
+            // Filters
+            const searchInput = document.getElementById('search');
+            const statusFilter = document.getElementById('statusFilter');
+            const engineerFilter = document.getElementById('engineerFilter');
+
+            function applyFilters() {
+                let filtered = [...certificationRequests];
+                const searchTerm = searchInput.value.toLowerCase();
+                const status = statusFilter.value;
+                const engineerId = engineerFilter.value;
+                
+                if (searchTerm) {
+                    filtered = filtered.filter(req => 
+                        req.machine_name.toLowerCase().includes(searchTerm) ||
+                        getClientName(req.clientId).toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                if (status !== 'All') {
+                    filtered = filtered.filter(req => req.status.toLowerCase() === status.toLowerCase());
+                }
+
+                if (engineerId !== 'All') {
+                    filtered = filtered.filter(req => req.assigned_engineer === parseInt(engineerId));
+                }
+                
+                renderTable(filtered);
+            }
+
+            searchInput.addEventListener('input', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            engineerFilter.addEventListener('change', applyFilters);
+        });
+
+    </script>
+
+</body>
+</html>
