@@ -1,11 +1,3 @@
-<?php
-// session_start();
-
-// if (!isset($_SESSION['Admins'])) {
-//   header("Location: ../../index.php"); // redirect to login
-//   exit();
-// }
-?>
 
 <!DOCTYPE html>
 <html
@@ -23,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Absolute Safety</title>
+    <title>Admin Dashboard - Absolute Safety</title>
 
     <meta name="description" content="" />
 
