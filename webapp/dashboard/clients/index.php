@@ -1,13 +1,10 @@
 <?php
-session_start();
+// Include the central session helper file
+require_once('../../core/session_helper.php');
 
-if (!isset($_SESSION['role'])) {
-  if ($_SESSION['role'] != 'clients') {
-
-    header("Location: ../../index.php");
-    exit();
-  }
-}
+// Call the function, specifying the required role.
+// This will either allow access or redirect the user.
+checkDashboardAccess('clients');
 ?>
 
 <!-- <script>
