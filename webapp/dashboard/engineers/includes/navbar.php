@@ -23,13 +23,12 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                   Welcome 
+                  <?php 
+                    $user = $_SESSION['user'];
+                    $fullname = $user['first_name'] ." ". $user['last_name'];
+                    echo $fullname;
+                  ?>
                 </div>
               </div>
               <!-- /Search -->
@@ -37,15 +36,7 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
+                  
                 </li>
 
                 <!-- User -->
@@ -77,7 +68,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block"><?php echo "$fullname"?></span>
                             <small class="text-muted">User</small>
                           </div>
                         </div>
