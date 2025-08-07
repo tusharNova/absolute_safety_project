@@ -19,11 +19,13 @@ require_once(__DIR__ . '/handler/CertificationRequestsHandler.php');
 
 // Parse the URL - Handle different URL patterns
 $request_uri = $_SERVER['REQUEST_URI'];
+// echo $request_uri;
 $script_name = $_SERVER['SCRIPT_NAME'];
-
+// echo ($script_name);
 // Remove script name from request URI to get the path
 $path = str_replace(dirname($script_name), '', $request_uri);
 $path = str_replace('/index.php', '', $path);
+
 
 // Remove query string
 $path = parse_url($path, PHP_URL_PATH);
