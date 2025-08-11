@@ -21,6 +21,7 @@ class CertificationRequests {
     }
 
     public function getById($id) {
+        echo"funtion call";
         $sql = "SELECT * FROM certification_requests WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

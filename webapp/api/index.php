@@ -1,4 +1,5 @@
 <?php
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -21,8 +22,7 @@ require_once(__DIR__ . '/handler/CertificationRequestsHandler.php');
 $request_uri = $_SERVER['REQUEST_URI'];
 // echo $request_uri;
 $script_name = $_SERVER['SCRIPT_NAME'];
-// echo ($script_name);
-// Remove script name from request URI to get the path
+
 $path = str_replace(dirname($script_name), '', $request_uri);
 $path = str_replace('/index.php', '', $path);
 
@@ -40,6 +40,7 @@ if ($path_parts[0] === 'api') {
 
 $resource = $path_parts[0] ?? '';
 $id = $path_parts[1] ?? null;
+// echo"$resource , $id";
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Debug output (remove in production)
@@ -48,7 +49,7 @@ error_log("Path: " . $path);
 error_log("Resource: " . $resource);
 error_log("ID: " . $id);
 error_log("Method: " . $method);
-
+//  echo"$method , $id";
 
 try {
     switch ($resource) {
@@ -60,70 +61,58 @@ try {
             break;
         case 'certification-requests':
             $handler = new CertificationRequestsHandler();
-
-            // Handle additional routes
+            
+            // Handle additional sub-routes first
             if (isset($path_parts[1])) {
                 $sub_resource = $path_parts[1];
-                $sub_id = $path_parts[2
-                
-                ] ?? null;
+                $sub_id = $path_parts[2] ?? null;
 
                 switch ($sub_resource) {
                     case 'client':
                         if ($method === 'GET' && $sub_id) {
                             $handler->getByClientId($sub_id);
-                        } else {
-                            Response::error('Invalid request', 400);
+                            exit(); // Add this to prevent further processing
                         }
                         break;
                     case 'engineer':
                         if ($method === 'GET' && $sub_id) {
                             $handler->getByEngineerId($sub_id);
-                        } else {
-                            Response::error('Invalid request', 400);
+                            exit(); // Add this to prevent further processing
                         }
                         break;
                     case 'status':
                         if ($method === 'PUT' && $id) {
                             $handler->updateStatus($id);
-                        } else {
-                            Response::error('Invalid request', 400);
+                            exit(); // Add this to prevent further processing
                         }
                         break;
-                    default:
-                        Response::error('Resource not found', 404);
-                }
-            } else {
-                switch ($method) {
-                    case 'GET':
-                        if ($id) {
-                            $handler->getById($id);
-                        } else {
-                            $handler->getAll();
-                        }
-                        break;
-                    case 'POST':
-                        $handler->create();
-                        break;
-                    case 'PUT':
-                        if ($id) {
-                            $handler->update($id);
-                        } else {
-                            Response::error('ID required for update', 400);
-                        }
-                        break;
-                    case 'DELETE':
-                        if ($id) {
-                            $handler->delete($id);
-                        } else {
-                            Response::error('ID required for delete', 400);
-                        }
-                        break;
-                    default:
-                        Response::error('Method not allowed', 405);
                 }
             }
-            break;
+            
+            // Then handle standard CRUD operations
+            switch ($method) {
+                case 'GET':
+                    if ($id) {
+                        $handler->getById($id);
+                    } else {
+                        $handler->getAll();
+                    }
+                    break;
+                case 'POST':
+                    $handler->create();
+                    break;
+                case 'PUT':
+                    if ($id) {
+                        $handler->update($id);
+                    }
+                    break;
+                case 'DELETE':
+                    if ($id) {
+                        $handler->delete($id);
+                    }
+                    break;
+            }
+            break; // Don't forget this break for the certification-requests case
 
         case '':
             // API root - show available endpoints
@@ -142,14 +131,10 @@ try {
 
                 ]
             ], 'API is working');
-
-            break;
         default:
-            Response::error('Resource not found. Available resources: users, subjects', 404);
-            exit();
+            Response::error('Resource not found', 404);
     }
-
-    // Route to appropriate handler method
+    
     switch ($method) {
         case 'GET':
             if ($id) {
@@ -180,4 +165,5 @@ try {
     }
 } catch (Exception $e) {
     Response::error('Server error: ' . $e->getMessage(), 500);
+    error_log("Handling certification request. ID: $id, Method: $method");
 }
